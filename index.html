@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matematički Kalkulator i Grafikon</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Unesite matematički izraz</h1>
+    
+    <!-- Polje za unos izraza -->
+    <input type="text" id="math-expression" placeholder="npr. 2 + 2 * 3">
+    
+    <!-- Dugme za izračunavanje -->
+    <button onclick="calculate()">Izračunaj</button>
+    
+    <h2>Rezultat: <span id="result"></span></h2>
+    
+    <h1>Unesite funkciju za grafikon</h1>
+    <!-- Polje za unos funkcije -->
+    <input type="text" id="function-input" placeholder="npr. x^2 + 2*x + 1">
+    
+    <!-- Dugme za prikazivanje grafikona -->
+    <button onclick="drawGraph()">Prikazivanje grafikona</button>
+    
+    <div id="graph"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.3.0/math.min.js"></script> 
+
+  <script src="js.js"></script>
+</body>
+</html>
