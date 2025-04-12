@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth();
+  const { login } = useAuth(); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,12 +21,20 @@ const Login = () => {
         password,
       });
 
-      login(res.data.token, res.data.user);
+      login(res.data.user, res.data.token);
 
-      toast.success("Uspešno logovanje!");
-      navigate("/main");
+      toast.success(`Korisnik ${res.data.user.name} je ulogovan!`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+
+      navigate("/tatamata");
+      
     } catch (error) {
-      toast.warn("Neispravan unos podataka!");
+      toast.warn("Neispravan unos podataka!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -40,6 +48,7 @@ const Login = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group>
@@ -48,6 +57,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Button type="submit">Uloguj se</Button>

@@ -3,37 +3,52 @@ import Nav from 'react-bootstrap/Nav';
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-
 const Header = () => {
+  const { user } = useAuth(); // Dohvatamo korisnika iz AuthContext
 
-    const { user } = useAuth();
-    //const isDisabled = !user;
-    const isDisabled = false;
-
-    return (
-        <Nav variant="tabs" activeKey="/">
+  return (
+    <Nav variant="tabs" activeKey="/">
       <Nav.Item>
         <Nav.Link as={Link} to="/">Home</Nav.Link>
       </Nav.Item>
+
+      {/* Proveravamo da li je korisnik ulogovan i ne prikazujemo Register i Login stranice */}
+      {!user && (
+        <>
+          <Nav.Item>
+            <Nav.Link as={Link} to="/register">Register</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link as={Link} to="/login">Log in</Nav.Link>
+          </Nav.Item>
+        </>
+      )}
+
+      {/* TataMata se prikazuje uvek, ali je disabled ako korisnik nije ulogovan */}
       <Nav.Item>
-        <Nav.Link as={Link} to="/register">Register</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-       <Nav.Link as={Link} to="/login">Log in</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link as={Link} to={isDisabled ? "#" : "/tatamata"} 
-                           disabled = {isDisabled} 
-                           style = {{
-                              pointerEvents: isDisabled ? "none" : "auto",
-                              opacity: isDisabled ? 0.5 : 1, 
-                           }}>
-                           TataMata
+        <Nav.Link 
+          as={Link} 
+          to="/tatamata" 
+          disabled={!user} 
+          style={{
+            pointerEvents: !user ? "none" : "auto", // Onemogućava klik ako korisnik nije ulogovan
+            opacity: !user ? 0.5 : 1, // Smanjuje opacitet kad je disabled
+          }}
+        >
+          TataMata
         </Nav.Link>
       </Nav.Item>
-    </Nav>
-    )
 
+      {/* Proveravamo da li je korisnik ulogovan i prikazujemo Loguout samo ukoliko je korisnik ulogovan */}
+      {user && (
+        <>
+          <Nav.Item>
+            <Nav.Link as={Link} to="/logout">Log out</Nav.Link>
+          </Nav.Item>
+        </>
+      )}
+    </Nav>
+  );
 }
 
 export default Header;
