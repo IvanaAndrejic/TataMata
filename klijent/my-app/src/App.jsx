@@ -11,9 +11,10 @@ import { AuthProvider, useAuth } from "../context/AuthContext"; // Importujemo A
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "../pages/Logout";
+import TataMataPage from "../pages/TataMataPage";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth(); // Proveravamo da li je korisnik logovan
+  const { user } = useAuth(); // Proveravamo da li je korisnik ulogovan
 
   return user ? children : <Navigate to="/login" replace />;
 };
@@ -46,6 +47,14 @@ function App() {
               <Route
                 path="/logout"
                 element={<Logout />}
+              />
+              <Route
+                    path="/tatamata/:id"
+                    element={
+                      <ProtectedRoute>
+                        <TataMataPage />
+                      </ProtectedRoute>
+                    }
               />
               <Route path="*" element={<Error />} />
             </Route>

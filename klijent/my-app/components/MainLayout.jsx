@@ -4,17 +4,14 @@ import Footer from "./Footer";
 import UserBadge from "./UserBadge";
 
 const MainLayout = () => {
-
-
-    return (
-
-        <>
-            <UserBadge></UserBadge>
-            <Header></Header>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </>
-    )
-}
+  return (
+    <>
+      <UserBadge />
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
 
 export default MainLayout;
