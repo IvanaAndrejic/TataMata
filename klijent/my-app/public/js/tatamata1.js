@@ -1,27 +1,57 @@
-const loadScript = (src) => {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
+// Proveravamo da li funkcija 'reloadScripts' već postoji
+if (typeof window.reloadScripts === 'undefined') {
+  window.reloadScripts = () => {
+    // Uklanjanje prethodnih skripti
+    const existingScripts = document.querySelectorAll('script[src]');
+    existingScripts.forEach(script => script.remove()); // Uklanjamo prethodne skripte
+
+    // Uklanjanje prethodnog stila (da stilovi drugih komponenti ne utiču)
+    const oldStyle = document.getElementById('tatamata-style');
+    if (oldStyle) oldStyle.remove();
+
+    loadExternalScripts().then(() => {
+      initializeContent();
+    }).catch(error => {
+      console.error("Greška pri učitavanju skripti: ", error);
     });
   };
-  
-  Promise.all([
-    loadScript('https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js'),
-    loadScript('https://cdn.plot.ly/plotly-latest.min.js')
-  ]).then(() => {
-    // Ubacujemo HTML u poseban div
+}
+
+// Proveravamo da li funkcija 'loadScript' postoji, i ako ne, definišemo je
+if (typeof window.loadScript === 'undefined') {
+  window.loadScript = function(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
+}
+
+// Proveravamo da li funkcija 'loadExternalScripts' već postoji, i ako ne, definišemo je
+if (typeof window.loadExternalScripts === 'undefined') {
+  window.loadExternalScripts = function() {
+    return Promise.all([
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js'),
+      loadScript('https://cdn.plot.ly/plotly-latest.min.js')
+    ]);
+  };
+}
+
+// Proveravamo da li funkcija 'initializeContent' već postoji, i ako ne, definišemo je
+if (typeof window.initializeContent === 'undefined') {
+  window.initializeContent = function() {
     const container = document.getElementById('tatamata-content');
     if (!container) return;
-  
+
     // Očistimo prethodni sadržaj
     container.innerHTML = '';
-  
+
     // Uklonimo bilo koje klase koje dodaju border
     container.classList.remove('border', 'border-primary');
-  
+
     // Dodajemo novi sadržaj bez border-a
     container.innerHTML = `
       <div class="container mt-5 mb-5" style="z-index: 1;">
@@ -35,7 +65,7 @@ const loadScript = (src) => {
               <h2 class="text-center">Rezultat: <span id="result"></span></h2>
             </div>
           </div>
-  
+
           <!-- Grafikon -->
           <div class="col-md-6 mb-4">
             <div class="card shadow p-4">
@@ -48,7 +78,7 @@ const loadScript = (src) => {
         </div>
       </div>
     `;
-  
+
     // Funkcija za izračunavanje izraza
     window.calculateExpression = function () {
       let expression = document.getElementById('math-expression').value;
@@ -59,12 +89,12 @@ const loadScript = (src) => {
         document.getElementById('result').innerText = "Greška u izrazu!";
       }
     };
-  
+
     // Funkcija za crtanje grafikona
     window.drawGraph = function () {
       let func = document.getElementById('function-input').value;
       let xValues = [], yValues = [];
-  
+
       for (let x = -10; x <= 10; x += 0.1) {
         xValues.push(x);
         try {
@@ -74,7 +104,7 @@ const loadScript = (src) => {
           yValues.push(NaN);
         }
       }
-  
+
       let trace = {
         x: xValues,
         y: yValues,
@@ -82,18 +112,19 @@ const loadScript = (src) => {
         mode: 'lines',
         line: { color: 'blue' }
       };
-  
+
       let layout = {
         title: 'Grafikon funkcije: y = ' + func,
         xaxis: { title: 'x' },
         yaxis: { title: 'y' }
       };
-  
+
       Plotly.newPlot('graph', [trace], layout);
     };
-  
-    // Dodavanje stilova (ako su ti i dalje potrebni)
+
+    // Dodavanje stilova sa ID-jem radi kasnijeg uklanjanja
     const style = document.createElement('style');
+    style.id = 'tatamata-style';
     style.innerHTML = `
       .container {
         text-align: center;
@@ -104,17 +135,16 @@ const loadScript = (src) => {
         width: 90%;
         z-index: 1;
       }
-  
+
       .row {
-        border: none; /* Ovdje osiguravamo da nema border-a */
-        border-radius: 10px;
+        border: none;
       }
-  
+
       .card {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
-  
+
       input {
         width: 80%;
         padding: 10px;
@@ -123,7 +153,7 @@ const loadScript = (src) => {
         border: 2px solid #ddd;
         border-radius: 5px;
       }
-  
+
       button {
         padding: 10px 20px;
         background-color: #4CAF50;
@@ -133,11 +163,11 @@ const loadScript = (src) => {
         font-size: 16px;
         cursor: pointer;
       }
-  
+
       button:hover {
         background-color: #45a049;
       }
-  
+
       #graph {
         width: 100%;
         height: 400px;
@@ -145,5 +175,8 @@ const loadScript = (src) => {
       }
     `;
     document.head.appendChild(style);
-  });
-  
+  };
+}
+
+// Pokretanje učitavanja
+reloadScripts();
