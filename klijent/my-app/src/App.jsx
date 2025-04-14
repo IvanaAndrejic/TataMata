@@ -12,12 +12,20 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "../pages/Logout";
 import TataMataPage from "../pages/TataMataPage";
+import { useLocation } from 'react-router-dom';
+import Admin from "../pages/Admin";
+
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth(); // Proveravamo da li je korisnik ulogovan
 
   return user ? children : <Navigate to="/login" replace />;
 };
+
+const ProtectedAdminRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user && user.isAdmin === true ? children : <Navigate to="/" replace />
+}
 
 function App() {
   return (
@@ -55,6 +63,14 @@ function App() {
                         <TataMataPage />
                       </ProtectedRoute>
                     }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedAdminRoute>
+                    <Admin />
+                  </ProtectedAdminRoute>
+                }
               />
               <Route path="*" element={<Error />} />
             </Route>

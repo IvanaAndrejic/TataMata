@@ -35,7 +35,7 @@ const Register = () => {
       toast.success("Uspešna registracija!");
       navigate("/login");
     } catch (error) {
-      toast.warn("Greška kod registracije!");
+      toast.error(error.response?.data?.message || "Greška kod registracije!");
     }
   };
 

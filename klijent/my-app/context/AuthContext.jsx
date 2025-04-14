@@ -9,25 +9,27 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (userData, token) => {
-    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));  // Spremamo korisničke podatke
     localStorage.setItem("token", token);
-    setUser(userData); // Postavljamo korisnika nakon logovanja
+    setUser(userData);  // Postavljamo korisnika sa isAdmin flagom
   };
 
   const logout = () => {
     try {
-      localStorage.clear(); // briše sve – možeš ići selektivno ako želiš preciznije
+      localStorage.clear();
       setUser(null);
     } catch (error) {
       console.error("Greška pri izlogovanju:", error);
     }
   };
-  
-  // Učitaj korisnika iz localStorage-a kada se aplikacija učita
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const storedToken = localStorage.getItem("token");
+
+    if (storedUser && storedToken) {
+      // Proverite da li je token prisutan, ali verifikaciju radite na serveru
+      setUser(JSON.parse(storedUser)); // Ako je token prisutan, postavljamo korisnika
     }
   }, []);
 

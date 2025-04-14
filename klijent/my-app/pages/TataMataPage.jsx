@@ -1,40 +1,51 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function TataMataPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    // Očisti prethodni sadržaj ako postoji
-    const existing = document.getElementById('tatamata-content');
-    if (existing) {
-      existing.innerHTML = '';
+    const container = document.getElementById('tatamata-content');
+
+    // Očisti sadržaj
+    if (container) {
+      container.innerHTML = '';
     }
 
-    // Ukloni stari script tag ako postoji
+    // Ukloni stare skripte
     const oldScript = document.getElementById('tatamata-script');
-    if (oldScript) {
-      oldScript.remove();
-    }
+    if (oldScript) oldScript.remove();
 
-    // Učitaj novi script
+    // Ukloni sve stilove koje su druge skripte možda dodale
+    const oldStyles = document.querySelectorAll('style[data-tatamata], style#tatamata-style');
+    oldStyles.forEach((style) => style.remove());
+
+    // Kreiraj i dodaj novu skriptu
     const script = document.createElement('script');
     script.id = 'tatamata-script';
-    script.src = `/js/tatamata${id}.js`; // Proveri da li koristiš relativnu ili apsolutnu putanju
+    script.src = `/js/tatamata${id}.js`;
     script.async = true;
+
+    script.onload = () => {
+      console.log(`tatamata${id}.js učitan`);
+    };
+
+    script.onerror = (err) => {
+      console.error(`Greška prilikom učitavanja tatamata${id}.js`, err);
+    };
+
     document.body.appendChild(script);
 
+    // Cleanup pri odlasku sa stranice
     return () => {
-      // Očisti pri unmountu
+      if (container) container.innerHTML = '';
+      const script = document.getElementById('tatamata-script');
       if (script) script.remove();
-      if (existing) existing.innerHTML = '';
+
+      const cleanupStyles = document.querySelectorAll('style[data-tatamata], style#tatamata-style');
+      cleanupStyles.forEach((s) => s.remove());
     };
   }, [id]);
 
-  return (
-    <div className="container mt-5 text-center">
-      <div id="tatamata-content" style={{ zIndex: 1 }}></div>
-    </div>
-  );
+  return <div id="tatamata-content"></div>;
 }

@@ -1,12 +1,10 @@
-// UserBadge.jsx
-import { Badge, Button } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const UserBadge = () => {
   const { user } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
 
   if (!user) return null;
 
@@ -25,17 +23,7 @@ const UserBadge = () => {
         alignItems: "flex-start",
       }}
     >
-      <Badge bg="primary" size="ml">{user.name} is logged in</Badge>
-      {!isHome && (
-        <>
-          <Button variant="secondary" size="sm" onClick={() => navigate(-1)}>
-            Back
-          </Button>
-          <Button variant="primary" size="sm" onClick={() => navigate("/")}>
-            Home
-          </Button>
-        </>
-      )}
+      <Badge bg="primary" size="ml">{user.name} is online</Badge>
     </div>
   );
 };

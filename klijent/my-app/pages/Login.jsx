@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth(); 
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,7 +21,22 @@ const Login = () => {
         password,
       });
 
+      // Spremanje korisničkog podatka i tokena u localStorage
       login(res.data.user, res.data.token);
+
+      // Dodavanje tokena u Authorization header za sve buduće zahteve
+      axios.interceptors.request.use(
+        (config) => {
+          const token = localStorage.getItem("token");
+          if (token) {
+            config.headers["Authorization"] = `Bearer ${token}`;
+          }
+          return config;
+        },
+        (error) => {
+          return Promise.reject(error);
+        }
+      );
 
       toast.success(`Korisnik ${res.data.user.name} je ulogovan!`, {
         position: "top-right",
@@ -29,12 +44,19 @@ const Login = () => {
       });
 
       navigate("/tatamata");
-      
+
     } catch (error) {
-      toast.warn("Neispravan unos podataka!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      if (error.response && error.response.status === 400) {
+        toast.warn(error.response.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      } else {
+        toast.warn("Greška prilikom logovanja!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
     }
   };
 

@@ -2,6 +2,7 @@ import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { NavItem } from "react-bootstrap";
 
 const Header = () => {
   const { user } = useAuth(); // Dohvatamo korisnika iz AuthContext
@@ -39,6 +40,13 @@ const Header = () => {
         </Nav.Link>
       </Nav.Item>
 
+      {/*Prikazujemo admin tab samo ako je korisnik admin */}
+      {user && user.isAdmin && (
+        <Nav.Item>
+          <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
+        </Nav.Item>
+      )}
+
       {/* Proveravamo da li je korisnik ulogovan i prikazujemo Loguout samo ukoliko je korisnik ulogovan */}
       {user && (
         <>
@@ -48,6 +56,7 @@ const Header = () => {
         </>
       )}
     </Nav>
+
   );
 }
 
