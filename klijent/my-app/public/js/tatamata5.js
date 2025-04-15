@@ -28,21 +28,21 @@
     // SAMO TRI kartice sada
     const cardsData = [
       {
-        img: "https://via.placeholder.com/286x180?text=Prva",
+        img: "/images/card1.png",
         title: "Baza prijemnih ispita iz matematike",
         text: "Uspešno se pripremi za polaganje prijemnog ispita na ETF-u, FON-u, MATF-u ili Građevinskom fakultetu. SREĆNO!",
         buttonText: "Detaljnije",
         link: "https://matemanija.com/prijemni/"
       },
       {
-        img: "https://via.placeholder.com/286x180?text=Druga",
+        img: "/images/card2.png",
         title: "Matematika za IV razred gimnazije",
         text: "Savladaj bez muke matematičke lekcije uz pomoć detaljno obrađenih nastavnih jedinica. ISTRAJ!",
         buttonText: "Pročitaj više",
         link: "https://www.krugizdavackakuca.rs/images/Pripreme/Pripreme%204M.pdf"
       },
       {
-        img: "https://via.placeholder.com/286x180?text=Treća",
+        img: "/images/card3.png",
         title: "Takmičarski zadaci",
         text: "Nadogradi svoje znanje i proveri svoju logiku kroz zadatke za učenike koji žele da znaju više. BRAVO!",
         buttonText: "Saznaj više",

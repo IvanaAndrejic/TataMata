@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../src/utils/axiosConfig";
+
 
 const Admin = () => {
   const [questions, setQuestions] = useState([]);
@@ -13,10 +14,8 @@ const Admin = () => {
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/questions", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
+      const response = await axios.get("http://localhost:5000/api/questions", {
+       
       });
       setQuestions(response.data);
     } catch (error) {
@@ -34,12 +33,10 @@ const Admin = () => {
   const handleAnswerSubmit = async (questionId) => {
     try {
       await axios.put(
-        `/api/questions/${questionId}/answer`,
+        `http://localhost:5000/api/questions/${questionId}/answer`,
         { answer: answers[questionId] },
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
+          
         }
       );
       setAnswers((prev) => ({ ...prev, [questionId]: "" }));
