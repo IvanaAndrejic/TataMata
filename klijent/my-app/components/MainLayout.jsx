@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
-import UserBadge from "./UserBadge";
+import UserTag from "./UserTag";
 
 const MainLayout = () => {
   return (
     <>
-      <UserBadge />
+      <UserTag />
       <Header />
       <Outlet />
       <Footer />

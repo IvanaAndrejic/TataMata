@@ -43,7 +43,7 @@ const Login = () => {
         autoClose: 3000,
       });
 
-      navigate("/tatamata");
+      navigate("/");
 
     } catch (error) {
       if (error.response && error.response.status === 400) {
