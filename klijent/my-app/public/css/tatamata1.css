@@ -1,0 +1,104 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  #root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ako koristiš neki header i footer */
+  header {
+    height: 60px; /* prilagodi po potrebi */
+  }
+  
+  footer {
+    height: 60px; /* prilagodi po potrebi */
+  }
+  
+  /* Glavni sadržaj */
+  #tatamata-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    background-color: white;
+  }
+  
+  /* Unutrašnji kontejner */
+  .container {
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #FDC840;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  /* Raspored za input i grafikon */
+  .row {
+    display: flex;
+    justify-content: space-between; /* Postavlja ih horizontalno */
+    gap: 20px; /* Razmak između divova */
+    
+  }
+  
+  .col-md-6 {
+    flex: 1;
+    max-width: 48%; /* Svaki div zauzima 48% širine, ostavlja razmak između */
+    box-sizing: border-box;
+    
+  }
+  
+  /* Kartice */
+  .card {
+    padding: 1.5em;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #0D1E49;
+  }
+  
+  /* Inputi */
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Dugmići */
+  button {
+    padding: 10px 20px;
+    background-color: #0D1E49;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Graf */
+  #graph {
+    width: 100%;
+    height: 300px; /* Smanjena visina grafikona */
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  
+
+  

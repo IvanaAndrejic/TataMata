@@ -1,7 +1,24 @@
 (function () {
-  // Očisti prethodni stil ako postoji
-  const oldStyle = document.getElementById("tatamata-style");
-  if (oldStyle) oldStyle.remove();
+  // Funkcija za uklanjanje stila i skripti kada napustimo stranicu
+  function removeResources() {
+    const oldStyle = document.getElementById("tatamata-style");
+    if (oldStyle) oldStyle.remove();
+
+    const oldScript = document.getElementById("tatamata-script");
+    if (oldScript) oldScript.remove();
+  }
+
+  // Funkcija za dodavanje stilova
+  function addStyles() {
+    const existingStyle = document.getElementById("tatamata-style");
+    if (!existingStyle) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "/css/tatamata3.css";
+      link.id = "tatamata-style";
+      document.head.appendChild(link);
+    }
+  }
 
   // Funkcija za inicijalizaciju sadržaja
   function initializeContent() {
@@ -13,25 +30,31 @@
 
     // Dodajemo novi sadržaj
     container.innerHTML = `
-      <div class="container">
-        <h1>Numbers API</h1>
-        <input type="number" id="numberInput" placeholder="Unesite broj" />
-        <button id="fetchButton">Prikaži informaciju</button>
-        <div id="result"></div>
+      <div class="container mt-5">
+        <div class="card shadow p-4">
+          <h1>Zanimljivosti o brojevima</h1>
+          <div class="input-container">
+            <input type="number" id="numberInput" placeholder="Unesite broj" />
+            <span id="clearButton" class="clear-btn">&times;</span>
+          </div>
+          <button id="fetchButton">Prikaži informaciju</button>
+          <div id="result"></div>
+        </div>
       </div>
     `;
 
-    // Event listener za dugme
+    // Event listener za dugme za prikaz podataka
     const button = document.getElementById("fetchButton");
     if (button) {
       button.addEventListener("click", () => {
         const number = document.getElementById("numberInput").value;
         if (!number) {
-          alert("Molimo unesite broj!");
+          if (window.showErrorModal) {
+            window.showErrorModal("Molimo unesite broj.");
+          }
           return;
         }
 
-        // Dohvatanje podataka sa Numbers API
         fetch(`http://numbersapi.com/${number}?json`)
           .then((res) => res.json())
           .then((data) => {
@@ -47,59 +70,22 @@
           });
       });
     }
+
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.addEventListener("click", () => {
+        document.getElementById("numberInput").value = '';
+        document.getElementById("result").innerHTML = '';
+      });
+    }
   }
 
-  // Funkcija za dodavanje stilova sa ID-jem za kasnije uklanjanje
-  function addStyles() {
-    const style = document.createElement('style');
-    style.id = 'tatamata-style';
-    style.innerHTML = `
-      .container {
-        text-align: center;
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 300px;
-        margin: 50px auto;
-      }
-
-      input {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-
-      button {
-        padding: 10px 15px;
-        font-size: 16px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-      }
-
-      button:hover {
-        background-color: #45a049;
-      }
-
-      #result {
-        margin-top: 20px;
-        font-size: 18px;
-        color: #333;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // Dodavanje stilova
+  // Dodajemo stilove
   addStyles();
 
-  // Pokretanje učitavanja
+  // Pokrećemo učitavanje sadržaja
   initializeContent();
+
+  // Uklanjamo stilove i skripte kada se stranica napusti
+  window.addEventListener("beforeunload", removeResources);
 })();
