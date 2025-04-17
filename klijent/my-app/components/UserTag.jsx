@@ -21,24 +21,29 @@ const UserTag = () => {
       }}
     >
       <Button
-        variant={isAdmin ? "outline-warning" : "outline-primary"}
-        className="rounded-pill d-flex align-items-center shadow-sm"
+        variant={isAdmin ? "outline-warning" : "outline-secondary"}
+        className="rounded-pill d-flex align-items-center justify-content-center shadow-sm"
         disabled
         style={{
           fontSize: "0.75rem",
-          padding: "0.25rem 0.6rem",
+          padding: "0.35rem 0.8rem", // Povećajte padding za bolje izgledanje
           pointerEvents: "none",
           opacity: 0.9,
+          minWidth: "100px", // Dodajte minimalnu širinu kako bi dugme bilo veće
         }}
       >
-        <FaUser className="me-1" size={12} />
+        <FaUser className="me-1" size={14} /> {/* Povećajte ikonu ako želite */}
         {user.name}
         {isAdmin && (
           <Badge
             bg="warning"
             text="dark"
             className="ms-2"
-            style={{ fontSize: "0.65rem" }}
+            style={{
+              fontSize: "0.75rem", // Prilagodite font-size
+              padding: "0.2rem 0.5rem", // Dodajte padding za bolji izgled
+              minWidth: "50px", // Osigurajte da se badge ne smanjuje
+            }}
           >
             Admin
           </Badge>

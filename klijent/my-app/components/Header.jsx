@@ -22,12 +22,18 @@ const Header = () => {
     color: location.pathname === path ? "#FDC840" : "#0D1E49",
     fontWeight: location.pathname === path ? "bold" : "normal",
     borderRadius: "0.325rem",
+    transition: "all 0.1s ease",  // Dodavanje transition efekta
   });
 
   const isOnTataMataSubpage = location.pathname.startsWith("/tatamata/");
 
   return (
-    <Nav variant="tabs" activeKey={location.pathname}>
+    <Nav
+      variant="tabs"
+      activeKey={location.pathname}
+      className="flex-column flex-sm-row"  // Dodajemo responzivnost
+      style={{ borderBottom: "none" }}  // Uklanja liniju ispod navigacije
+    >
       <Nav.Item>
         <Nav.Link as={Link} to="/" style={getLinkStyle("/")}>
           Home
@@ -53,11 +59,7 @@ const Header = () => {
       {user && !user.isAdmin && (
         <>
           <Nav.Item>
-            <Nav.Link
-              as={Link}
-              to="/tatamata"
-              style={getLinkStyle("/tatamata")}
-            >
+            <Nav.Link as={Link} to="/tatamata" style={getLinkStyle("/tatamata")}>
               TataMata
             </Nav.Link>
           </Nav.Item>
