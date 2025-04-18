@@ -5,60 +5,32 @@
   container.innerHTML = "";
   container.className = "";
 
-  const prevStyles = document.querySelectorAll("style[data-tatamata]");
-  prevStyles.forEach((style) => style.remove());
+  // Uklanjanje prethodnih stilova
+  const prevStyles = document.querySelectorAll("link[data-tatamata-style], style[data-tatamata]");
+  prevStyles.forEach((el) => el.remove());
 
-  const style = document.createElement("style");
-  style.setAttribute("data-tatamata", "tatamata4");
-  style.innerHTML = `
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-    }
+  // Učitavanje tatamata4.css
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "/public/css/tatamata4.css"; // Ažuriraj ako je path drugačiji
+  link.setAttribute("data-tatamata-style", "tatamata4");
+  document.head.appendChild(link);
 
-    #quizContainer {
-        width: 80%;
-        margin: 20px auto;
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    button {
-        margin: 10px;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-    .hidden {
-        display: none;
-    }
-  `;
-  document.head.appendChild(style);
-
+  // Kreiranje HTML strukture
   container.innerHTML = `
+  <div class="container mt-3">
     <div id="quizContainer">
         <div id="questionContainer"></div>
         <button id="answerBtn">Odgovori na pitanje</button>
-        <button id="showResultsBtn" class="hidden">Prikazi rezultat</button>
+        <button id="showResultsBtn" class="hidden">Prikaži rezultat</button>
         <div id="resultContainer" class="hidden">
             <p id="resultText"></p>
         </div>
     </div>
+  </div>
   `;
 
+  // Podaci za kviz
   const quizData = [
     {
       question: "Koliko je 2 + 2?",
@@ -66,7 +38,7 @@
       b: "4",
       c: "5",
       d: "6",
-      correct: "b", // Ispravan odgovor je 'b'
+      correct: "b",
     },
     {
       question: "Koliko je 5 x 6?",
@@ -74,7 +46,7 @@
       b: "25",
       c: "20",
       d: "35",
-      correct: "a", // Ispravan odgovor je 'a'
+      correct: "a",
     },
     {
       question: "Koliko je 12 ÷ 4?",
@@ -82,7 +54,7 @@
       b: "4",
       c: "2",
       d: "5",
-      correct: "a", // Ispravan odgovor je 'a'
+      correct: "a",
     },
   ];
 
@@ -91,50 +63,43 @@
   let totalAnswered = 0;
 
   function loadQuestion() {
-    console.log(`Loading question ${currentQuestionIndex + 1}`);
     const currentQuestion = quizData[currentQuestionIndex];
     const questionContainer = document.getElementById("questionContainer");
 
     questionContainer.innerHTML = `
-        <h2>${currentQuestion.question}</h2>
-        <label>
-            <input type="radio" name="answer" value="a"> ${currentQuestion.a}
-        </label><br>
-        <label>
-            <input type="radio" name="answer" value="b"> ${currentQuestion.b}
-        </label><br>
-        <label>
-            <input type="radio" name="answer" value="c"> ${currentQuestion.c}
-        </label><br>
-        <label>
-            <input type="radio" name="answer" value="d"> ${currentQuestion.d}
-        </label><br>
+      <h2>Pitanje ${currentQuestionIndex + 1} od ${quizData.length}</h2>
+      <p>${currentQuestion.question}</p>
+      <label class="option">
+          <input type="radio" name="answer" value="a" /> ${currentQuestion.a}
+      </label>
+      <label class="option">
+          <input type="radio" name="answer" value="b" /> ${currentQuestion.b}
+      </label>
+      <label class="option">
+          <input type="radio" name="answer" value="c" /> ${currentQuestion.c}
+      </label>
+      <label class="option">
+          <input type="radio" name="answer" value="d" /> ${currentQuestion.d}
+      </label>
     `;
   }
 
   function answerQuestion() {
     const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-    
+
     if (selectedAnswer) {
       totalAnswered++;
-      console.log("Selected Answer:", selectedAnswer.value);
-      console.log("Correct Answer:", quizData[currentQuestionIndex].correct);
-
       if (selectedAnswer.value === quizData[currentQuestionIndex].correct) {
         correctAnswers++;
       }
 
-      console.log("Correct Answers:", correctAnswers);
-      console.log("Total Answered:", totalAnswered);
-
       currentQuestionIndex++;
 
-      // Proveri da li je poslednje pitanje
       if (currentQuestionIndex < quizData.length) {
         loadQuestion();
       } else {
-        document.getElementById("answerBtn").classList.add("hidden"); // Skriva dugme za odgovaranje
-        document.getElementById("showResultsBtn").classList.remove("hidden"); // Prikazuje dugme za rezultat
+        document.getElementById("answerBtn").classList.add("hidden");
+        document.getElementById("showResultsBtn").classList.remove("hidden");
       }
     } else {
       alert("Molimo vas da odgovorite na pitanje!");
@@ -142,20 +107,23 @@
   }
 
   function showResults() {
-    const resultContainer = document.getElementById("resultContainer");
-    const resultText = document.getElementById("resultText");
-
     const totalQuestions = quizData.length;
-
-    console.log("Final Correct Answers:", correctAnswers);
-    console.log("Total Answered Questions:", totalAnswered);
-
     const percentage = ((correctAnswers / totalQuestions) * 100).toFixed(2);
-    console.log("Calculated Percentage:", percentage);
 
-    resultText.innerHTML = `Vaš rezultat: ${correctAnswers} od ${totalQuestions} tačnih odgovora (${percentage}%)`;
+    const resultText = `Vaš rezultat: ${correctAnswers} od ${totalQuestions} tačnih odgovora (${percentage}%)`;
 
-    resultContainer.classList.remove("hidden"); // Prikazivanje rezultata
+    // Pozivamo funkciju koja je definisana u TataMataPage.jsx
+    if (window.showResultModal) {
+      window.showResultModal(resultText); // Prikazujemo rezultat u modalnom prozoru
+    }
+
+    // Takođe resetujemo kviz
+    currentQuestionIndex = 0;
+    correctAnswers = 0;
+    totalAnswered = 0;
+
+    // Ako treba, resetuj pitanje nakon što se rezultat prikaže
+    loadQuestion();
   }
 
   document.getElementById("answerBtn").onclick = answerQuestion;

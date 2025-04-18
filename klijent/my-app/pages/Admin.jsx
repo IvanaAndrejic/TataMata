@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "../src/utils/axiosConfig";
-
+import Alert from 'react-bootstrap/Alert';
+import Footer from "../components/Footer";
 
 const Admin = () => {
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState({}); // Čuva odgovore po ID-ju
-  const [loading, setLoading] = useState(true); // Status učitavanja
+  const [answers, setAnswers] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [statusMessage, setStatusMessage] = useState(null);
+  const [statusVariant, setStatusVariant] = useState("success");
 
   useEffect(() => {
     fetchQuestions();
@@ -14,13 +17,12 @@ const Admin = () => {
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/questions", {
-       
-      });
+      const response = await axios.get("http://localhost:5000/api/questions");
       setQuestions(response.data);
     } catch (error) {
       console.error("Greška pri dohvatanju pitanja:", error);
-      alert("Neuspelo učitavanje pitanja");
+      setStatusMessage("Neuspelo učitavanje pitanja.");
+      setStatusVariant("danger");
     } finally {
       setLoading(false);
     }
@@ -31,61 +33,153 @@ const Admin = () => {
   };
 
   const handleAnswerSubmit = async (questionId) => {
+    const trimmedAnswer = answers[questionId]?.trim();
+    if (!trimmedAnswer) {
+      setStatusMessage("Odgovor ne može biti prazan.");
+      setStatusVariant("warning");
+      return;
+    }
+
     try {
       await axios.put(
         `http://localhost:5000/api/questions/${questionId}/answer`,
-        { answer: answers[questionId] },
-        {
-          
-        }
+        { answer: trimmedAnswer }
       );
       setAnswers((prev) => ({ ...prev, [questionId]: "" }));
-      // Ažuriraj samo odgovarajuće pitanje
       setQuestions((prevQuestions) =>
         prevQuestions.map((q) =>
-          q._id === questionId ? { ...q, answer: answers[questionId] } : q
+          q._id === questionId ? { ...q, answer: trimmedAnswer } : q
         )
       );
-      alert("Odgovor je uspešno poslat!");
+      setStatusMessage("Odgovor je uspešno poslat!");
+      setStatusVariant("success");
     } catch (error) {
       console.error("Greška pri slanju odgovora:", error);
-      alert("Neuspelo slanje odgovora");
+      setStatusMessage("Neuspelo slanje odgovora.");
+      setStatusVariant("danger");
     }
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Admin - Odgovori na pitanja</h2>
-      {loading ? (
-        <p>Učitavanje pitanja...</p>
-      ) : questions.length === 0 ? (
-        <p>Nema pitanja.</p>
-      ) : (
-        questions.map((question) => (
-          <div key={question._id} className="card mb-3">
-            <div className="card-body">
-              <p><strong>Korisnik:</strong> {question.userId?.name} ({question.userId?.email})</p>
-              <p><strong>Pitanje:</strong> {question.question}</p>
-              <p><strong>Trenutni odgovor:</strong> {question.answer || <em>Nema odgovora</em>}</p>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <div className="container mt-5 mb-5" style={{ flexGrow: 1 }}>
+        <h2 className="mb-4">Odgovori na pitanja</h2>
 
-              <textarea
-                value={answers[question._id] || ""}
-                onChange={(e) => handleAnswerChange(question._id, e.target.value)}
-                placeholder="Unesite odgovor"
-                rows="3"
-                className="form-control mt-2"
-              />
-
-              <button
-                className="btn btn-primary mt-2"
-                onClick={() => handleAnswerSubmit(question._id)}
-              >
-                Pošalji odgovor
-              </button>
-            </div>
+        {statusMessage && (
+          <div className="custom-alert">
+            <Alert
+              variant={statusVariant}
+              onClose={() => setStatusMessage(null)}
+              dismissible
+            >
+              {statusMessage}
+            </Alert>
           </div>
-        ))
-      )}
+        )}
+
+        {loading ? (
+          <p>Učitavanje pitanja...</p>
+        ) : questions.length === 0 ? (
+          <p>Nema pitanja.</p>
+        ) : (
+          [...questions]
+            .sort((a, b) => (a.answer ? 1 : -1))
+            .map((question) => (
+              <div key={question._id} className="card mb-3 answer">
+                <div className="card-body">
+                  <p><strong>Korisnik:</strong> {question.userId?.name} ({question.userId?.email})</p>
+                  <p><strong>Pitanje:</strong> {question.question}</p>
+                  <p><strong>Odgovor:</strong> {question.answer || <em>Nema odgovora</em>}</p>
+
+                  {!question.answer && (
+                    <>
+                      <textarea
+                        value={answers[question._id] || ""}
+                        onChange={(e) => handleAnswerChange(question._id, e.target.value)}
+                        placeholder="Unesite odgovor"
+                        rows="3"
+                        className="form-control mt-2"
+                      />
+                      <button
+                        className="btn btn-warning mt-2"
+                        onClick={() => handleAnswerSubmit(question._id)}
+                      >
+                        Pošalji odgovor
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))
+        )}
+      </div>
+
+      <footer style={{ marginTop: "auto", backgroundColor: "white", padding: "1px 0", textAlign: "center" }}>
+        <Footer />
+      </footer>
+
+      <style>
+        {`
+          body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+          }
+
+          .container {
+            max-width: 800px;
+            margin-top: 10px;
+            box-shadow: 0 0 10px #FDC840;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+          }
+
+          .card {
+            box-shadow: 0 0 10px #0D1E49;
+            border: none;
+            border-radius: 10px;
+          }
+
+          .answer {
+            background-color: #f3f4f8;
+          }
+
+          .form-control {
+            width: 100%;
+            height: 100px;
+            font-size: 1rem;
+            padding: 10px;
+            resize: vertical;
+          }
+
+          .btn-warning {
+            background-color: #fdc840;
+            border-color: #fdc840;
+            color: black;
+            font-weight: bold;
+            font-size: 1rem;
+          }
+
+          .btn-warning:hover {
+            background-color: #e6b734;
+            border-color: #e6b734;
+          }
+
+          footer {
+            color: #0D1E49;
+            line-height: 60px;
+          }
+
+          .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 280px;
+          }
+        `}
+      </style>
     </div>
   );
 };

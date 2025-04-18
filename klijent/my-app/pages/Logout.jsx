@@ -15,9 +15,18 @@ const Logout = () => {
 
   return (
     <main>
-      <div className="container">
-        <h1>Hvala na poseti!</h1>
-        <Button variant="outline-danger" onClick={handleLogout}>
+      <div className="container mt-4 mb-4" style={{
+          maxWidth: '500px',
+          padding: '20px',
+          borderRadius: '10px',
+          boxShadow: '0px 4px 10px #0D1E49', // zuti box-shadow
+          textAlign: 'center',
+          margin: '0 auto',
+          background: '#f3f4f8'
+        }}>
+        <h2 className='mb-4 mt-2'>BEZ MUKE NEMA NAUKE!</h2>
+        <Button variant="warning" onClick={handleLogout} 
+        >
           Izloguj se
         </Button>
       </div>

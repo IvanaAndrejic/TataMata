@@ -36,7 +36,7 @@ html, body {
     text-align: center;
     background-color: white;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 5px #FDC840;
     width: 100%;
     max-width: 1200px;
@@ -47,7 +47,7 @@ html, body {
     width: 100%;
     max-width: 1000px;
     margin: 1em 1em;
-    color: #0D1E49;
+    box-shadow: 0 0 10px #0D1E49;
   }
   
   

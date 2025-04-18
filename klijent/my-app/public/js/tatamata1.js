@@ -44,11 +44,11 @@ if (typeof window.initializeContent === 'undefined') {
     container.innerHTML = `
       <div id="tatamata-root">
         <main>
-          <div class="container mt-5 mb-5" style="z-index: 1;">
-            <div class="row p-4 mt-4 mb-4">
+          <div class="container mt-4 mb-4" style="z-index: 1;">
+            <div class="row p-4 mt-1 mb-1">
               <!-- Kalkulator -->
               <div class="col-md-6">
-                <div class="card shadow p-4">
+                <div class="card p-4">
                   <h1 class="mb-4 text-center text-warning">Unesite matematički izraz</h1>
                   <input type="text" id="math-expression" class="form-control mb-3" placeholder="npr. 2 + 2 * 3" />
                   <button class="btn btn-secondary w-25 mb-4 mx-auto" onclick="calculateExpression()">Izračunaj</button>
@@ -58,7 +58,7 @@ if (typeof window.initializeContent === 'undefined') {
 
               <!-- Grafikon -->
               <div class="col-md-6">
-                <div class="card shadow p-4">
+                <div class="card p-4">
                   <h1 class="mb-4 text-center text-warning">Unesite funkciju za grafikon</h1>
                   <input type="text" id="function-input" class="form-control mb-3" placeholder="npr. x^2 + 2*x + 1" />
                   <button class="btn btn-secondary w-25 mb-4 mx-auto" onclick="drawGraph()">Nacrtaj</button>
