@@ -45,7 +45,7 @@
     // Dodajemo novi sadržaj
     container.innerHTML = `
       <div class="container mt-5">
-        <div class="card shadow p-4">
+        <div class="card p-4">
           <h1 class="text-center mb-4">Matematička šala za danas</h1>
           <p id="date" class="text-center mb-3" style="font-size: 1.2em;"></p>
           <p id="fact" class="text-center" style="font-size: 1.5em; color: #0D1E49;"></p>

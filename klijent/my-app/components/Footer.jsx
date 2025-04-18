@@ -1,16 +1,19 @@
 import React from "react";
 
-const Footer = () => {
+const Footer = ({ isAdmin }) => {
   return (
     <footer
       style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        width: "100%",
+        backgroundColor: "white",
+        padding: "0",
         height: "60px",
         textAlign: "center",
         color: "#0D1E49",
+        lineHeight: "60px", // vertikalno centriranje teksta
+        position: isAdmin ? "static" : "fixed",  // Za admin je static, inače fixed
+        bottom: 0,
+        left: 0,
+        width: "100%",
         zIndex: 1030,
       }}
     >

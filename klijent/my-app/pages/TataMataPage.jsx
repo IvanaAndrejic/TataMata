@@ -3,43 +3,39 @@ import { useParams } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import TataMataGraphModal from '../modals/TataMataGraphModal';
 import TataMataResultModal from '../modals/TataMataResultModal';
-import TataMataModalError from '../modals/TataMataModalError';  // Novi modal za greške
+import TataMataModalError from '../modals/TataMataModalError';
 
 export default function TataMataPage() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState(null);
-  const [showErrorModal, setShowErrorModal] = useState(false); // State za prikazivanje modala greške
-  const [errorMessage, setErrorMessage] = useState(''); // Poruka greške
-  const [showGraphModal, setShowGraphModal] = useState(false); // State za prikazivanje modala sa grafikom
-  const [showResultModal, setShowResultModal] = useState(false); // State za prikazivanje modala sa rezultatom
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showGraphModal, setShowGraphModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false);
 
   useEffect(() => {
-    // Očistimo prethodni sadržaj i sve resurse
     const container = document.getElementById('tatamata-content');
     if (container) {
       container.innerHTML = '';
     }
 
-    // Uklanjamo prethodne stilove i skripte
     const oldStyles = document.querySelectorAll('link[data-tatamata]');
     oldStyles.forEach((style) => style.remove());
 
     const oldScript = document.getElementById('tatamata-script');
     if (oldScript) oldScript.remove();
 
-    // Dodavanje novog CSS fajla za trenutni id
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `/css/tatamata${id}.css`; // Putanja do specifičnog CSS-a za trenutnu komponentu
+    link.href = `/css/tatamata${id}.css`;
     link.id = `tatamata-style-${id}`;
     link.setAttribute('data-tatamata', 'true');
     document.head.appendChild(link);
 
-    // Učitavanje specifičnog JS fajla za trenutnu komponentu
     const script = document.createElement('script');
     script.id = 'tatamata-script';
-    script.src = `/js/tatamata${id}.js`; // Putanja do specifičnog JS-a
+    script.src = `/js/tatamata${id}.js`;
     script.async = true;
 
     const start = Date.now();
@@ -57,38 +53,32 @@ export default function TataMataPage() {
 
     document.body.appendChild(script);
 
-    // Postavljamo globalne funkcije na window objektu
-    window.showErrorModal = (message) => {
-      setErrorMessage(message);
-      setShowErrorModal(true);
-    };
-
     window.showResultModal = (result) => {
       setResult(result);
       setShowResultModal(true);
+    };
+
+    window.showErrorModal = (message) => {
+      setErrorMessage(message);
+      setShowErrorModal(true);
     };
 
     window.handleShowGraphModal = () => {
       setShowGraphModal(true);
     };
 
-    // Čišćenje kada se komponenta unmount-uje
     return () => {
-      // Čišćenje pri promeni rute
       if (container) container.innerHTML = '';
-      
       const cleanupScript = document.getElementById('tatamata-script');
       if (cleanupScript) cleanupScript.remove();
-
       const cleanupStyles = document.querySelectorAll('link[data-tatamata]');
       cleanupStyles.forEach((s) => s.remove());
 
-      // Čišćenje globalnih funkcija
       delete window.showErrorModal;
       delete window.showResultModal;
       delete window.handleShowGraphModal;
     };
-  }, [id]); // useEffect se pokreće svaki put kad se id promeni
+  }, [id]);
 
   return (
     <>
@@ -100,29 +90,11 @@ export default function TataMataPage() {
         </div>
       )}
 
-      {/* Kontener za sadržaj TataMata */}
       <div id="tatamata-content" style={{ display: loading ? 'none' : 'block' }}></div>
 
-      {/* Modal za grafikon */}
-      <TataMataGraphModal
-        show={showGraphModal}
-        handleClose={() => setShowGraphModal(false)}
-        message="Grafikon funkcije"
-      />
-
-      {/* Modal za rezultat izraza */}
-      <TataMataResultModal
-        show={showResultModal}
-        handleClose={() => setShowResultModal(false)}
-        result={result}
-      />
-
-      {/* Modal za greške */}
-      <TataMataModalError
-        show={showErrorModal}
-        handleClose={() => setShowErrorModal(false)}
-        message={errorMessage}
-      />
+      <TataMataGraphModal show={showGraphModal} handleClose={() => setShowGraphModal(false)} message="Grafikon funkcije" />
+      <TataMataResultModal show={showResultModal} handleClose={() => setShowResultModal(false)} result={result} />
+      <TataMataModalError show={showErrorModal} handleClose={() => setShowErrorModal(false)} message={errorMessage} />
     </>
   );
 }

@@ -31,7 +31,7 @@
     // Dodajemo novi sadržaj
     container.innerHTML = `
       <div class="container mt-5">
-        <div class="card shadow p-4">
+        <div class="card p-4">
           <h1>Zanimljivosti o brojevima</h1>
           <div class="input-container">
             <input type="number" id="numberInput" placeholder="Unesite broj" />

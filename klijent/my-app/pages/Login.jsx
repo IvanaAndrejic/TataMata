@@ -61,8 +61,17 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <h2>Login Form</h2>
+    <div className="container mb-4 mt-4" style={{
+      width: '500px',
+      maxWidth: '1000px',
+      padding: '20px',
+      borderRadius: '10px',
+      boxShadow: '0 0 10px #0D1E49', // zuti box-shadow
+      textAlign: 'center',
+      margin: '0 auto',
+      background: '#f3f4f8'
+    }}>
+      <h2 className="mt-2 mb-4" style={{color:'#FDC840'}}>Unesite podatke</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Email</Form.Label>
@@ -82,7 +91,7 @@ const Login = () => {
             required
           ></Form.Control>
         </Form.Group>
-        <Button type="submit">Uloguj se</Button>
+        <Button type="submit" variant="warning">Uloguj se</Button>
       </Form>
     </div>
   );
