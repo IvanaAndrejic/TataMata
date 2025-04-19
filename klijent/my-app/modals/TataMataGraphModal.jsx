@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import "../public/css/tatamata1.css"
 
 export default function TataMataGraphModal({ show, handleClose }) {
   return (

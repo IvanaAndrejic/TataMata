@@ -31,8 +31,8 @@ const Header = () => {
     <Nav
       variant="tabs"
       activeKey={location.pathname}
-      className="flex-column flex-sm-row"  // Dodajemo responzivnost
-      style={{ borderBottom: "none" }}  // Uklanja liniju ispod navigacije
+      className="flex-column flex-sm-row"   // Dodajemo responzivnost
+      style={{ borderBottom: "none"}}  // Uklanja liniju ispod navigacije
     >
       <Nav.Item>
         <Nav.Link as={Link} to="/" style={getLinkStyle("/")}>

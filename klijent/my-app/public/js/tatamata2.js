@@ -1,71 +1,111 @@
 (function () {
-  // Funkcija za uklanjanje stila i skripti kada napustimo stranicu
   function removeResources() {
-    const oldStyle = document.getElementById("tatamata-style");
-    if (oldStyle) oldStyle.remove();
-
-    const oldScript = document.getElementById("tatamata-script");
-    if (oldScript) oldScript.remove();
+    document.querySelectorAll('style[data-tatamata-style="tm2"]').forEach(el => el.remove());
   }
 
-  // Funkcija za dodavanje stilova
-  function addStyles() {
-    // Dodavanje CSS fajla ako nije već učitan
-    const existingStyle = document.getElementById("tatamata-style");
-    if (!existingStyle) {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "/css/tatamata2.css"; // Putanja do vašeg CSS fajla
-      link.id = "tatamata-style";
-      document.head.appendChild(link);
-    }
+  function addInlineStyles() {
+    const style = document.createElement("style");
+    style.setAttribute("data-tatamata-style", "tm2");
+    style.innerHTML = `
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+
+      #root {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        height: 60px;
+      }
+
+      footer {
+        height: 60px;
+      }
+
+      #tatamata-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-color: white;
+      }
+
+      .tm2-container {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px #FDC840;
+        width: 100%;
+        max-width: 1200px;
+        margin-top: 3rem;
+      }
+
+      .tm2-card {
+        padding: 1.5em;
+        width: 100%;
+        max-width: 1000px;
+        margin: 1em;
+        box-shadow: 0 0 10px #0D1E49;
+        background-color: #f3f4f8;
+        border-radius: 8px;
+      }
+
+      .tm2-card h1 {
+        color: #FDC840;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .tm2-card p {
+        text-align: center;
+        font-size: 1.5em;
+        color: #0D1E49;
+      }
+
+      .tm2-card #tm2-date {
+        font-size: 1.2em;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .tm2-card hr {
+        margin: 2rem 0 1rem;
+      }
+    `;
+    document.head.appendChild(style);
   }
 
-  // Funkcija za dodavanje skripti
-  function addScript() {
-    // Dodavanje JS fajla ako nije već učitan
-    const existingScript = document.getElementById("tatamata-script");
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.id = "tatamata-script";
-      script.src = "/js/tatamata2.js"; // Putanja do vašeg JS fajla
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }
-
-  // Funkcija za inicijalizaciju sadržaja
   function initializeContent() {
     const container = document.getElementById("tatamata-content");
     if (!container) return;
 
-    // Očistimo prethodni sadržaj
-    container.innerHTML = '';
-
-    // Dodajemo novi sadržaj
     container.innerHTML = `
-      <div class="container mt-5">
-        <div class="card p-4">
-          <h1 class="text-center mb-4">Matematička šala za danas</h1>
-          <p id="date" class="text-center mb-3" style="font-size: 1.2em;"></p>
-          <p id="fact" class="text-center" style="font-size: 1.5em; color: #0D1E49;"></p>
-          <hr class="my-4" />
+      <div class="tm2-container">
+        <div class="tm2-card">
+          <h1>Matematička šala za danas</h1>
+          <p id="tm2-date"></p>
+          <p id="tm-fact"></p>
+          <hr />
         </div>
       </div>
     `;
 
-    // Dodajemo stilove i skripte
-    addStyles();
-    addScript();
-
-    // Dodavanje trenutnog datuma
     const today = new Date();
     const formattedToday = today.toLocaleDateString();
-    document.getElementById("date").innerHTML = `Danas je: ${formattedToday}`;
-    document.getElementById("fact").textContent = getMathJoke();
+    document.getElementById("tm2-date").innerHTML = `Danas je: ${formattedToday}`;
+    document.getElementById("tm-fact").textContent = getMathJoke();
   }
 
-  // Funkcija koja vraća matematičke šale
   function getMathJoke() {
     const jokes = [
       "Why was the equal sign so humble? Because it knew it wasn’t less than or greater than anyone else.",
@@ -78,9 +118,8 @@
     return jokes[Math.floor(Math.random() * jokes.length)];
   }
 
-  // Pokreni učitavanje odmah
+  removeResources();
+  addInlineStyles();
   initializeContent();
-
-  // Dodajemo event listener da uklonimo resurse prilikom napuštanja stranice
   window.addEventListener("beforeunload", removeResources);
 })();

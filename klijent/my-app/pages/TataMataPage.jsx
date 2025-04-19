@@ -13,25 +13,23 @@ export default function TataMataPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showGraphModal, setShowGraphModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
+  const [buttonText, setButtonText] = useState('Odgovori na pitanje'); // Tekst dugmeta
 
   useEffect(() => {
     const container = document.getElementById('tatamata-content');
+
+    const oldRoot = document.getElementById('tatamata-root');
+    if (oldRoot) oldRoot.remove();
     if (container) {
       container.innerHTML = '';
     }
 
+    // Ukloniti dodavanje CSS fajlova
     const oldStyles = document.querySelectorAll('link[data-tatamata]');
     oldStyles.forEach((style) => style.remove());
 
     const oldScript = document.getElementById('tatamata-script');
     if (oldScript) oldScript.remove();
-
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = `/css/tatamata${id}.css`;
-    link.id = `tatamata-style-${id}`;
-    link.setAttribute('data-tatamata', 'true');
-    document.head.appendChild(link);
 
     const script = document.createElement('script');
     script.id = 'tatamata-script';
@@ -55,6 +53,7 @@ export default function TataMataPage() {
 
     window.showResultModal = (result) => {
       setResult(result);
+      setButtonText('Prikazi rezultat'); // Tekst dugmeta menja se kad se modal otvori
       setShowResultModal(true);
     };
 
@@ -80,6 +79,11 @@ export default function TataMataPage() {
     };
   }, [id]);
 
+  const handleModalClose = () => {
+    setShowResultModal(false); // Zatvori modal
+    setButtonText('Odgovori na pitanje'); // Resetuj dugme na početni tekst
+  };
+
   return (
     <>
       {loading && (
@@ -93,7 +97,11 @@ export default function TataMataPage() {
       <div id="tatamata-content" style={{ display: loading ? 'none' : 'block' }}></div>
 
       <TataMataGraphModal show={showGraphModal} handleClose={() => setShowGraphModal(false)} message="Grafikon funkcije" />
-      <TataMataResultModal show={showResultModal} handleClose={() => setShowResultModal(false)} result={result} />
+      <TataMataResultModal 
+        show={showResultModal} 
+        handleClose={handleModalClose} // Prosleđujemo funkciju za zatvaranje modala
+        result={result} 
+      />
       <TataMataModalError show={showErrorModal} handleClose={() => setShowErrorModal(false)} message={errorMessage} />
     </>
   );

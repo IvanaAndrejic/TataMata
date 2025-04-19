@@ -1,10 +1,14 @@
+// PROBLEMATIKA SA MEŠANJEM STILOVA
 // Proveravamo da li funkcija 'reloadScripts' već postoji
 if (typeof window.reloadScripts === 'undefined') {
   window.reloadScripts = () => {
-    const existingScripts = document.querySelectorAll('script[src]');
-    existingScripts.forEach(script => script.remove());
+    // Uklanjanje prethodnih stilova i skripti
+    document.querySelectorAll('style[data-tatamata-style="tm1"]').forEach(el => el.remove());
+    document.querySelectorAll('script[src]').forEach(script => script.remove());
 
+    // Učitavanje skripti
     loadExternalScripts().then(() => {
+      injectTatamata1Styles();
       initializeContent();
     }).catch(error => {
       console.error("Greška pri učitavanju skripti: ", error);
@@ -33,36 +37,89 @@ if (typeof window.loadExternalScripts === 'undefined') {
   };
 }
 
+// Uklapanje stilova direktno u JS zbog problematike sa mešanjem stilova
+function injectTatamata1Styles() {
+  const style = document.createElement('style');
+  style.setAttribute('data-tatamata-style', 'tm1');
+  style.innerHTML = `
+    html, body {
+      margin: 0; padding: 0; height: 100%; 
+      font-family: Arial, sans-serif;
+    }
+    #root {
+      height: 100%; display: flex; flex-direction: column;
+    }
+    header, footer {
+      height: 60px;
+    }
+    #tatamata-content {
+      flex: 1; display: flex; justify-content: center; align-items: center;
+      padding: 1px; background-color: white;
+    }
+    .tm1-container {
+      text-align: center; background-color: white; padding: 10px;
+      border-radius: 8px; box-shadow: 0 0 10px #FDC840;
+      width: 100%; max-width: 1200px;
+    }
+    .tm1-row {
+      display: flex; justify-content: space-between; gap: 20px;
+    }
+    .tm1-col-md-6 {
+      flex: 1; max-width: 48%; box-sizing: border-box;
+    }
+    .tm1-card {
+      padding: 1.5em; width: 100%; max-width: 500px; margin: 0 auto;
+      border-radius: 8px; box-shadow: 0 0 10px #0D1E49; background-color: #f3f4f8;
+    }
+    .tm1-input {
+      width: 100%; padding: 10px; font-size: 14px; margin-bottom: 20px;
+      border: 2px solid #ddd; border-radius: 5px;
+    }
+    .tm1-button {
+      padding: 10px 20px; background-color: #0D1E49; color: white; margin-right: 10px;
+      border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
+    }
+    .tm1-button:hover {
+      background-color: #29324b;
+    }
+    .tm1-graph {
+      width: 100%; height: 300px; margin-top: 20px;
+      border: 1px solid #ddd; border-radius: 8px;
+    }
+    h1 {
+      color: #FDC840;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Inicijalizacija
 if (typeof window.initializeContent === 'undefined') {
   window.initializeContent = function () {
     const container = document.getElementById('tatamata-content');
     if (!container) return;
 
     container.innerHTML = '';
-    container.classList.remove('border', 'border-primary');
 
     container.innerHTML = `
       <div id="tatamata-root">
         <main>
-          <div class="container mt-4 mb-4" style="z-index: 1;">
-            <div class="row p-4 mt-1 mb-1">
-              <!-- Kalkulator -->
-              <div class="col-md-6">
-                <div class="card p-4">
-                  <h1 class="mb-4 text-center text-warning">Unesite matematički izraz</h1>
-                  <input type="text" id="math-expression" class="form-control mb-3" placeholder="npr. 2 + 2 * 3" />
-                  <button class="btn btn-secondary w-25 mb-4 mx-auto" onclick="calculateExpression()">Izračunaj</button>
-                  <button class="btn btn-warning w-25 mb-4 mx-auto" onclick="resetContent()">Resetuj</button>
+          <div class="tm1-container mt-4 mb-4" style="z-index: 1;">
+            <div class="tm1-row p-4 mt-1 mb-1">
+              <div class="tm1-col-md-6">
+                <div class="tm1-card">
+                  <h1 class="mb-4 text-center">Unesite izraz</h1>
+                  <input type="text" id="math-expression" class="tm1-input" placeholder="npr. 2 + 2 * 3" />
+                  <button class="tm1-button w-25 mb-2" onclick="calculateExpression()">Izračunaj</button>
+                  <button class="tm1-button w-25" onclick="resetContent()">Resetuj</button>
                 </div>
               </div>
-
-              <!-- Grafikon -->
-              <div class="col-md-6">
-                <div class="card p-4">
-                  <h1 class="mb-4 text-center text-warning">Unesite funkciju za grafikon</h1>
-                  <input type="text" id="function-input" class="form-control mb-3" placeholder="npr. x^2 + 2*x + 1" />
-                  <button class="btn btn-secondary w-25 mb-4 mx-auto" onclick="drawGraph()">Nacrtaj</button>
-                  <button class="btn btn-warning w-25 mb-4 mx-auto" onclick="resetContent()">Resetuj</button>
+              <div class="tm1-col-md-6">
+                <div class="tm1-card">
+                  <h1 class="mb-4 text-center">Unesite funkciju</h1>
+                  <input type="text" id="function-input" class="tm1-input" placeholder="npr. x^2 + 2*x + 1" />
+                  <button class="tm1-button w-25 mb-2" onclick="drawGraph()">Nacrtaj</button>
+                  <button class="tm1-button w-25" onclick="resetContent()">Resetuj</button>
                 </div>
               </div>
             </div>
@@ -71,10 +128,8 @@ if (typeof window.initializeContent === 'undefined') {
       </div>
     `;
 
-    // Funkcija za izračunavanje izraza i slanje ka modalu
     window.calculateExpression = function () {
       let expression = document.getElementById('math-expression').value;
-
       const expressionRegex = /^[\d+\-*/^().\s]+$/;
       if (!expressionRegex.test(expression)) {
         if (typeof window.showErrorModal === 'function') {
@@ -82,11 +137,10 @@ if (typeof window.initializeContent === 'undefined') {
         }
         return;
       }
-
       try {
-        let calculatedResult = math.evaluate(expression);
+        let result = math.evaluate(expression);
         if (typeof window.showResultModal === 'function') {
-          window.showResultModal(calculatedResult);
+          window.showResultModal(result);
         }
       } catch (error) {
         if (typeof window.showErrorModal === 'function') {
@@ -95,11 +149,9 @@ if (typeof window.initializeContent === 'undefined') {
       }
     };
 
-    // Funkcija za crtanje grafikona
     window.drawGraph = function () {
-      let functionInput = document.getElementById('function-input').value;
-
-      if (!functionInput) {
+      let fn = document.getElementById('function-input').value;
+      if (!fn) {
         if (typeof window.showErrorModal === 'function') {
           window.showErrorModal();
         }
@@ -107,27 +159,22 @@ if (typeof window.initializeContent === 'undefined') {
       }
 
       try {
-        math.evaluate(functionInput, { x: 0 });
+        math.evaluate(fn, { x: 0 });
 
         if (typeof window.handleShowGraphModal === 'function') {
           window.handleShowGraphModal();
 
           setTimeout(() => {
             const graphContainer = document.getElementById('graph-modal-container');
-            if (!graphContainer) {
-              console.error("Graph container nije pronađen.");
-              return;
-            }
-
+            if (!graphContainer) return;
             graphContainer.innerHTML = '';
 
             let xValues = [], yValues = [];
             for (let x = -10; x <= 10; x += 0.1) {
               xValues.push(x);
               try {
-                let y = math.evaluate(functionInput, { x });
-                yValues.push(y);
-              } catch (error) {
+                yValues.push(math.evaluate(fn, { x }));
+              } catch {
                 yValues.push(NaN);
               }
             }
@@ -141,7 +188,7 @@ if (typeof window.initializeContent === 'undefined') {
             };
 
             const layout = {
-              title: `y = ${functionInput}`,
+              title: `y = ${fn}`,
               xaxis: { title: 'x' },
               yaxis: { title: 'y' }
             };
@@ -150,14 +197,12 @@ if (typeof window.initializeContent === 'undefined') {
           }, 100);
         }
       } catch (error) {
-        console.log("Greška u funkciji:", error);
         if (typeof window.showErrorModal === 'function') {
-          window.showErrorModal();
+          window.showErrorModal("Greška u funkciji: " + error.message);
         }
       }
     };
 
-    // Funkcija za resetovanje sadržaja
     window.resetContent = function () {
       document.getElementById('math-expression').value = '';
       document.getElementById('function-input').value = '';

@@ -91,7 +91,7 @@ const Login = () => {
             required
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="warning">Uloguj se</Button>
+        <Button type="submit" className="mt-4" variant="warning">Uloguj se</Button>
       </Form>
     </div>
   );

@@ -1,16 +1,126 @@
 (function () {
+  // Kreiraj i dodaj style tag u head
+  const style = document.createElement('style');
+  style.innerHTML = `
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+
+    /* Glavni kontejner koji sadrži sve */
+    #root {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      
+    }
+
+    #tatamata-content {
+      flex-grow: 1; /* Ovaj deo se širi da popuni raspoloživi prostor */
+      padding-bottom: 70px; /* Padding za izbegavanje preklapanja sa footerom */
+      justify-content: center; /* Centriranje vertikalno */
+      align-items: center; /* Centriranje horizontalno */
+    }
+
+    .tm-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px); /* izbegava preklapanje sa header/footer */
+  padding: 20px 0;
+}
+
+    /* Stil za karticu koja sadrži pitanje i odgovor */
+   .tm-container {
+   width: 60%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px #FDC840;
+    border-radius: 5px;
+  padding: 20px;
+}
+
+    .tm-card {
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #0D1E49;
+    border-radius: 5px;
+
+    }
+
+    .tm-card-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .tm-card-body {
+      padding: 20px;
+    }
+
+    .tm-mb-3 {
+      margin-bottom: 1rem;
+    }
+
+    .tm-mt-4 {
+      margin-top: 1.5rem;
+    }
+
+    .tm-textarea.form-control {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .tm-btn-primary {
+      background-color: #ff9800;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .tm-btn-primary:hover {
+      background-color: #e68900;
+    }
+
+    .tm-card.mb-3 {
+      margin-bottom: 1rem;
+    }
+
+    .tm-card-body p {
+      margin: 0;
+    }
+
+    .tm-answer {
+      background-color: #f3f4f8;
+      box-shadow: none;
+    border-radius: 5px;
+
+    }
+  `;
+
+  document.head.appendChild(style); // Dodajemo style tag u head sekciju
+
   const container = document.getElementById("tatamata-content");
   if (!container) return;
 
   container.innerHTML = `
-    <div class="container mt-2" style="max-width: 600px;">
-      <div class="card shadow-ml mt-4">
-        <div class="card-body">
-          <h4 class="card-title mb-3">Postavi pitanje profesoru</h4>
-          <div class="mb-3">
-            <textarea class="form-control" id="questionInput" rows="3" placeholder="Unesite Vaše pitanje..."></textarea>
+  <div class="tm-wrapper">
+    <div class="tm-container">
+      <div class="tm-card shadow-ml mt-2">
+        <div class="tm-card-body">
+          <h4 class="tm-card-title mb-3">Postavi pitanje profesoru</h4>
+          <div class="tm-mb-3">
+            <textarea class="tm-textarea form-control" id="questionInput" rows="3" placeholder="Unesite Vaše pitanje..."></textarea>
           </div>
-          <button class="btn btn-warning mt-4" id="submitQuestionBtn">Pošaljite pitanje</button>
+          <button class="tm-btn-primary mt-4" id="submitQuestionBtn">Pošaljite pitanje</button>
         </div>
       </div>
 
@@ -19,14 +129,8 @@
         <div id="messagesList" class="mt-3"></div>
       </div>
     </div>
+   </div> 
   `;
-
-  // Učitavamo stilove putem linka
-  const link = document.createElement("link");
-  link.setAttribute("data-tatamata", "tatamata6");
-  link.rel = "stylesheet";
-  link.href = "/public/css/tatamata6.css"; // Putanja do novog CSS fajla
-  document.head.appendChild(link);
 
   // Dodavanje kontenera za notifikacije
   const notificationContainer = document.createElement("div");
@@ -58,8 +162,8 @@
       messagesList.innerHTML = "";
       questions.forEach(({ question, answer }) => {
         messagesList.innerHTML += `
-          <div class="card mb-3 answer">
-            <div class="card-body">
+          <div class="tm-card mb-3 tm-answer">
+            <div class="tm-card-body">
               <p class="mb-1"><strong>Pitanje:</strong> ${question}</p>
               <p class="mb-0"><strong>Odgovor:</strong> ${answer ? answer : "<em>Još uvek nema odgovora</em>"}</p>
             </div>

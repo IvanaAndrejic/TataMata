@@ -89,7 +89,7 @@ const Register = () => {
               required
             ></Form.Control>
           </Form.Group>
-          <Button type="submit" variant="warning">Registruj se</Button>
+          <Button type="submit" className="mt-4" variant="warning">Registruj se</Button>
         </Form>
       </div>
     </div>
