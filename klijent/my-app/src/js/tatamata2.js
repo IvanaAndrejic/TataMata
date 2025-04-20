@@ -1,6 +1,19 @@
 (function () {
-  function removeResources() {
-    document.querySelectorAll('style[data-tatamata-style="tm2"]').forEach(el => el.remove());
+  function cleanupComponentStyles(except = []) {
+    const removeStyles = (attrName) => {
+      const styles = document.querySelectorAll(`style[${attrName}]`);
+      styles.forEach(style => {
+        const name = style.getAttribute(attrName);
+        if (!except.includes(name)) {
+          if (style.parentNode) {
+            style.parentNode.removeChild(style);
+          }
+        }
+      });
+    };
+
+    removeStyles('data-tatamata-style');
+    removeStyles('data-component-style');
   }
 
   function addInlineStyles() {
@@ -118,8 +131,8 @@
     return jokes[Math.floor(Math.random() * jokes.length)];
   }
 
-  removeResources();
+  cleanupComponentStyles(["tm2"]);
   addInlineStyles();
   initializeContent();
-  window.addEventListener("beforeunload", removeResources);
+  window.addEventListener("beforeunload", () => cleanupComponentStyles(["tm2"]));
 })();

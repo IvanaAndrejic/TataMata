@@ -1,32 +1,38 @@
 import React, { useEffect } from "react";
 import logo from "../images/logo.png";
+import { cleanupComponentStyles } from '../src/js/styleCleaner'; 
 
 const Home = () => {
   useEffect(() => {
-    const headerStyle = document.createElement("style");
-    headerStyle.innerHTML = `
+    
+    cleanupComponentStyles(['home']); 
+
+    document.body.classList.add("home-page");
+    document.querySelector("main").classList.add("home-main");
+
+    const homeStyle = document.createElement("style");
+    homeStyle.setAttribute("data-component-style", "home");
+    homeStyle.innerHTML = `
+      body.home-page {
+        min-height: 100vh;
+      }
+      
       header {
         background-color: #0D1E49;
         color: white;
         padding: 5px 20px;
         text-align: center;
         font-size: 1.5rem;
-        height: 60px;
-        line-height: 50px;
-        position: fixed;
+        height: 10px;
+        line-height: 10px;
         top: 0;
         width: 100%;
         z-index: 1000;
       }
 
-      body {
+      main.home-main {
         margin: 0 !important;
-        padding: 0 !important;
-      }
-
-      main {
-        margin: 0 !important;
-        padding-top: 60px; /* prostor ispod hedera */
+        padding-top: 60px;
       }
 
       @keyframes fadeIn {
@@ -45,10 +51,13 @@ const Home = () => {
         transform: translateY(20px);
       }
     `;
-    document.head.appendChild(headerStyle);
+    document.head.appendChild(homeStyle);
 
     return () => {
-      document.head.removeChild(headerStyle);
+      
+      document.body.classList.remove("home-page");
+      document.querySelector("main").classList.remove("home-main");
+      document.head.removeChild(homeStyle); // Očisti stilove kada se komponenta ugasi
     };
   }, []);
 
@@ -62,42 +71,39 @@ const Home = () => {
           boxShadow: "0 0 10px #0D1E49",
           borderRadius: "8px",
           padding: "5px",
-          
         }}
       >
-        <div
+      <div
           className="border border-warning p-3 rounded d-flex flex-row justify-content-center align-items-center"
           style={{
             borderWidth: "1px",
             borderColor: "#0D1E49",
             margin: "0",
           }}
-        >
-          {/* Logo */}
-          <div className="col-lg-4 text-center mb-4 mb-lg-0">
-            <div
+      >
+      <div className="col-lg-4 text-center mb-4 mb-lg-0">
+          <div
               className="border p-1 rounded"
-              style={{
-                borderWidth: "1px",
-                display: "inline-block",
-                marginRight: "10px",
-              }}
-            >
-              <img
-                src={logo}
-                alt="Tatamata"
-                className="rounded"
                 style={{
-                  maxWidth: "500px",
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: "0.25rem",
+                  borderWidth: "1px",
+                  display: "inline-block",
+                  marginRight: "10px",
                 }}
+          >
+          <img
+              src={logo}
+              alt="Tatamata"
+              className="rounded"
+              style={{
+                maxWidth: "500px",
+                width: "100%",
+                height: "auto",
+                borderRadius: "0.25rem",
+              }}
               />
             </div>
           </div>
 
-          {/* Tekst */}
           <div className="col-lg-8 text-center">
             <h2
               className="mb-4"
@@ -114,8 +120,7 @@ const Home = () => {
             <p className="lead" style={{ fontSize: "1.1rem" }}>
               TataMata aplikacija za učenje matematike osmišljena je da vam
               pomogne u sticanju novih znanja, proširivanju postojećih,
-              otkrivanju zanimljivih činjenica o brojevima i komunikaciji sa
-              profesorom. Idealna je za sve koji žele da unaprede svoje
+              otkrivanju zanimljivih činjenica o brojevima. Idealna je za sve koji žele da unaprede svoje
               matematičko znanje kroz zabavu i interaktivne aktivnosti!
               Pridružite se i otkrijte kako matematika može biti zabavna i
               jednostavna! Uživajte u svakom koraku svog matematičkog

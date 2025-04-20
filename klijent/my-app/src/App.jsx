@@ -7,7 +7,7 @@ import Register from "../pages/Register";
 import Error from "../pages/Error";
 import Login from "../pages/Login";
 import TataMata from "../pages/TataMata";
-import { AuthProvider, useAuth } from "../context/AuthContext"; // Importujemo AuthContext
+import { AuthProvider, useAuth } from "../context/AuthContext"; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "../pages/Logout";
@@ -17,7 +17,7 @@ import Admin from "../pages/Admin";
 
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth(); // Proveravamo da li je korisnik ulogovan
+  const { user } = useAuth();
 
   return user ? children : <Navigate to="/login" replace />;
 };

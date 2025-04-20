@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "../src/utils/axiosConfig";
 import Alert from 'react-bootstrap/Alert';
 import Footer from "../components/Footer";
+import { cleanupComponentStyles } from '../src/js/styleCleaner'; 
 
 const Admin = () => {
   const [questions, setQuestions] = useState([]);
@@ -11,7 +12,13 @@ const Admin = () => {
   const [statusVariant, setStatusVariant] = useState("success");
 
   useEffect(() => {
+
+    cleanupComponentStyles([`tm-admin`]); 
     fetchQuestions();
+
+    return () => {
+      cleanupComponentStyles([`tm-admin`]); 
+    };
   }, []);
 
   const fetchQuestions = async () => {
@@ -62,8 +69,8 @@ const Admin = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <div className="container mt-5 mb-5" style={{ flexGrow: 1 }}>
-        <h2 className="mb-4">Odgovori na pitanja</h2>
+      <div className="container mt-4 mb-4" style={{ flexGrow: 1 }}>
+        <h2 className="admin-q mb-4">Odgovori na pitanja</h2>
 
         {statusMessage && (
           <div className="custom-alert">
@@ -130,15 +137,14 @@ const Admin = () => {
             max-width: 800px;
             margin-top: 10px;
             box-shadow: 0 0 10px #FDC840;
-            background-color: #fff;
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 8px;
           }
 
           .card {
             box-shadow: 0 0 10px #0D1E49;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
           }
 
           .answer {
@@ -177,6 +183,11 @@ const Admin = () => {
             right: 20px;
             z-index: 9999;
             min-width: 280px;
+          }
+
+          .admin-q {
+            font-weight: bold;
+            color: #0d1e49;
           }
         `}
       </style>
