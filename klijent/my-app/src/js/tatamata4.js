@@ -2,19 +2,56 @@
   const container = document.getElementById("tatamata-content");
   if (!container) return;
 
+  function cleanupComponentStyles(except = []) {
+    const removeStyles = (attrName) => {
+      const styles = document.querySelectorAll(`style[${attrName}]`, `link[${attrName}]`);
+      styles.forEach(style => {
+        const name = style.getAttribute(attrName);
+        if (!except.includes(name)) {
+          if (style.parentNode) {
+            style.parentNode.removeChild(style);
+          }
+        }
+      });
+    };
+
+    removeStyles('data-tatamata-style');
+    removeStyles('data-component-style');
+  }
+
+  function showNotification(message, type = 'warning') {
+    const notificationContainer = document.createElement("div");
+    notificationContainer.classList.add("alert", `alert-${type}`, "alert-dismissible", "fade", "show");
+    notificationContainer.setAttribute("role", "alert");
+
+    notificationContainer.innerHTML = `
+      <strong>${message}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+    notificationContainer.style.position = 'fixed';
+    notificationContainer.style.top = '10px';
+    notificationContainer.style.right = '10px';
+    notificationContainer.style.zIndex = '1050';
+
+    document.body.appendChild(notificationContainer);
+
+    setTimeout(() => {
+      notificationContainer.remove();
+    }, 3000);
+  }
+
+  cleanupComponentStyles();
+
   container.innerHTML = "";
   container.className = "";
 
-  // Uklanjanje prethodnih stilova
-  const prevStyles = document.querySelectorAll("link[data-tatamata-style], style[data-tatamata]");
-  prevStyles.forEach((el) => el.remove());
-
-  // Učitavanje integrisanih stilova
   const style = document.createElement("style");
-  style.setAttribute("data-tatamata", "tatamata4");
+  style.setAttribute("data-tatamata-style", "tatamata4");
+
 
   style.innerHTML = `
-    /* Osnovni reset i font */
+
     html, body {
         margin: 0;
         padding: 0;
@@ -22,65 +59,60 @@
         font-family: Arial, sans-serif;
     }
 
-    /* Glavni kontejner koji sadrži sve */
     #root {
         height: 100%;
         display: flex;
         flex-direction: column;
     }
 
-    /* Glavni sadržaj (sadržaj neće preći visinu ekrana) */
     .tm-tatamata-content {
-        flex: 1; /* Ovaj deo popunjava preostali prostor */
+        flex: 1; 
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: white;
         padding: 20px;
-        margin-bottom: 60px; /* Ostavljamo prostor za footer */
+        margin-bottom: 60px;
     }
 
-    /* Unutrašnji kontejner (povećana visina) */
-    .tm-container {
+    .tm-container4 {
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
         background-color: white;
-        padding: 20px;
+        padding: 10px;
         border-radius: 10px;
         box-shadow: 0 0 10px #FDC840;
         width: 60%;
         max-width: 1000px;
-        height: 500px; /* Povećana visina kontejnera */
-        margin: 0 auto; /* Centriranje */
+        height: 500px; 
+        margin: 0 auto; 
     }
 
-    /* Kontejner kviza */
     .tm-quiz-container {
         width: 100%;
-        max-width: 500px; /* Manja širina kviza */
+        max-width: 500px; 
         background-color: white;
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 10px ;
         text-align: center;
-        margin: 10px auto;
+        margin: 5px auto;
+        background-color: rgba(254, 231, 175, 0.91);
+
     }
 
-    /* Naslovi */
     .tm-quiz-container h2 {
         color: #FDC840;
         margin-bottom: 20px;
         font-size: 20px;
     }
 
-    /* Stil za opcije pitanja */
     .tm-question-container {
         text-align: left;
     }
 
-    /* Stil za opcije odgovora */
     .tm-option {
         display: flex;
         align-items: center;
@@ -104,8 +136,7 @@
         transform: scale(1.2);
     }
 
-    /* Dugmad */
-    .tm-button {
+    .tm-button4 {
         padding: 12px 20px;
         font-size: 16px;
         background-color: #0D1E49;
@@ -119,11 +150,10 @@
         max-width: 200px;
     }
 
-    .tm-button:hover {
+    .tm-button4:hover {
         background-color: #29324b;
     }
 
-    /* Rezultat */
     .tm-result-container {
         margin-top: 25px;
     }
@@ -134,28 +164,24 @@
         font-weight: bold;
     }
 
-    /* Utility klasa */
     .tm-hidden {
         display: none;
     }
-  `;
+  ;`
   document.head.appendChild(style);
 
-  // Kreiranje HTML strukture
   container.innerHTML = `
-    <div class="tm-container mt-3">
+    <div class="tm-container4 mt-3">
       <div class="tm-quiz-container">
           <div class="tm-question-container"></div>
-          <button class="tm-button" id="answerBtn">Odgovori na pitanje</button>
-          <button class="tm-button tm-hidden" id="showResultsBtn">Prikaži rezultat</button>
+          <button class="tm-button4" id="answerBtn">Odgovori na pitanje</button>
+          <button class="tm-button4 tm-hidden" id="showResultsBtn">Prikaži rezultat</button>
           <div class="tm-result-container tm-hidden" id="resultContainer">
               <p class="tm-result-text" id="resultText"></p>
           </div>
       </div>
     </div>
-  `;
-
-  // Podaci za kviz
+    `
   const quizData = [
     {
       question: "Koliko je 2 + 2?",
@@ -206,7 +232,7 @@
       <label class="tm-option">
           <input type="radio" name="answer" value="d" /> ${currentQuestion.d}
       </label>
-    `;
+    `
   }
 
   function answerQuestion() {
@@ -227,7 +253,7 @@
         document.getElementById("showResultsBtn").classList.remove("tm-hidden");
       }
     } else {
-      alert("Molimo vas da odgovorite na pitanje!");
+        showNotification("Niste odgovorili na pitanje!", "warning");
     }
   }
 
@@ -237,17 +263,14 @@
 
     const resultText = `Vaš rezultat: ${correctAnswers} od ${totalQuestions} tačnih odgovora (${percentage}%)`;
 
-    // Pozivamo funkciju koja je definisana u TataMataPage.jsx
     if (window.showResultModal) {
-      window.showResultModal(resultText); // Prikazujemo rezultat u modalnom prozoru
+      window.showResultModal(resultText); 
     }
 
-    // Resetujemo kviz
     currentQuestionIndex = 0;
     correctAnswers = 0;
     totalAnswered = 0;
 
-    // Resetovanje dugmadi i pitanja
     document.getElementById("answerBtn").classList.remove("tm-hidden");
     document.getElementById("showResultsBtn").classList.add("tm-hidden");
     loadQuestion();

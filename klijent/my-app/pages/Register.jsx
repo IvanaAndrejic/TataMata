@@ -1,8 +1,9 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { cleanupComponentStyles } from '../src/js/styleCleaner';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -14,6 +15,67 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+
+    cleanupComponentStyles(['register']); //Čisti stilove da ne bi dolazilo do mešanja
+
+    const registerStyle = document.createElement("style");
+    registerStyle.setAttribute("data-component-style", "register"); //BITNO!
+
+    registerStyle.innerHTML = `
+      .register-container {
+        width: 500px;
+        max-width: 1000px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #0D1E49;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 10px;
+        background: #f3f4f8;
+      }
+
+      .register-title {
+        color: #FDC840;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+      }
+
+      .register-btn {
+        margin-top: 1rem;
+        background-color: #FDC840;
+        border-color: #FDC840;
+      }
+
+      .register-btn:hover {
+        background-color: #f0a500 !important;
+        border-color: #f0a500 !important;
+      }
+
+      .register-label {
+        font-weight: bold;
+        color: #0D1E49;
+        margin-top: 1.5rem;
+      }
+
+      /* Dodavanje margine i padding aspecifične za Register komponentu */
+      body, main {
+        margin: 0;
+        padding: 0;
+      }
+
+      main {
+        padding-top: 80px; /* Prilagođavanje paddinga */
+      }
+    `;
+    document.head.appendChild(registerStyle);
+
+    return () => {
+      document.head.removeChild(registerStyle);
+    };
+  }, []);
+
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -22,9 +84,9 @@ const Register = () => {
     e.preventDefault();
 
     if (
-      isNaN(userData.year) ||
-      userData.year < 1930 ||
-      userData.year > new Date().getFullYear()
+          isNaN(userData.year) ||
+          userData.year < 1930 ||
+          userData.year > new Date().getFullYear()
     ) {
       toast.error("Neispravan unos godine!");
       return;
@@ -40,56 +102,76 @@ const Register = () => {
   };
 
   return (
-    <div className="container mb-4 mt-4" style={{
-      width: '500px',
-      maxWidth: '1000px',
-      padding: '20px',
-      borderRadius: '10px',
-      boxShadow: '0 0 10px #0D1E49', // zuti box-shadow
-      textAlign: 'center',
-      margin: '0 auto',
-      background: '#f3f4f8'
-    }}>
-      <h2 className="mt-2 mb-4" style={{color:'#FDC840'}}>Registracija novih korisnika</h2>
+    <div className="register-container">
+      <h2 className="register-title mt-3">Registracija novih korisnika</h2>
       <div className="row">
         <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
+          <Form.Group className="display-flex justify-content-center">
+            <Form.Label className="register-label">Email</Form.Label>
             <Form.Control
               type="email"
               name="email"
+              style={{
+                width: "80%",
+                margin: "0 auto",
+                display: "block",
+                textAlign: "center",
+                marginBottom: "0.8rem"
+              }}
               onChange={handleChange}
               required
-            ></Form.Control>
+            />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Password</Form.Label>
+            <Form.Label className="mt-2 register-label">Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
+              style={{
+                width: "80%",
+                margin: "0 auto",
+                display: "block",
+                textAlign: "center",
+                marginBottom: "0.8rem"
+              }}
               onChange={handleChange}
               required
-            ></Form.Control>
+            />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Name:</Form.Label>
+            <Form.Label className="mt-2 register-label">Name</Form.Label>
             <Form.Control
               type="text"
               name="name"
+              style={{
+                width: "80%",
+                margin: "0 auto",
+                display: "block",
+                textAlign: "center",
+                marginBottom: "0.8rem"
+              }}
               onChange={handleChange}
               required
-            ></Form.Control>
+            />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Year</Form.Label>
+            <Form.Label className="mt-2 register-label">Year</Form.Label>
             <Form.Control
               type="number"
               name="year"
+              style={{
+                width: "50%",
+                margin: "0 auto",
+                display: "block",
+                textAlign: "center",
+              }}
               onChange={handleChange}
               required
-            ></Form.Control>
+            />
           </Form.Group>
-          <Button type="submit" className="mt-4" variant="warning">Registruj se</Button>
+          <Button type="submit" className="register-btn" variant="warning">
+            Registruj se
+          </Button>
         </Form>
       </div>
     </div>

@@ -6,7 +6,7 @@ const Error = () => {
 
             <div className="container">
 
-                <h1>Greska!</h1>
+                <h1>GREŠKA!!!</h1>
 
                 <p>Stranica ne postoji!!!</p>
             </div>

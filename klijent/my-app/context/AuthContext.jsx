@@ -9,9 +9,9 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (userData, token) => {
-    localStorage.setItem("user", JSON.stringify(userData));  // Spremamo korisničke podatke
+    localStorage.setItem("user", JSON.stringify(userData));  
     localStorage.setItem("token", token);
-    setUser(userData);  // Postavljamo korisnika sa isAdmin flagom
+    setUser(userData);  
   };
 
   const logout = () => {
@@ -28,8 +28,7 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem("token");
 
     if (storedUser && storedToken) {
-      // Proverite da li je token prisutan, ali verifikaciju radite na serveru
-      setUser(JSON.parse(storedUser)); // Ako je token prisutan, postavljamo korisnika
+      setUser(JSON.parse(storedUser)); 
     }
   }, []);
 

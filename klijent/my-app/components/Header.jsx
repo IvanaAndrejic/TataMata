@@ -16,13 +16,12 @@ const Header = () => {
     "Q&A"
   ];
 
-  // Stilizacija za aktivni link
   const getLinkStyle = (path) => ({
     backgroundColor: location.pathname === path ? "#0D1E49" : "transparent",
     color: location.pathname === path ? "#FDC840" : "#0D1E49",
     fontWeight: location.pathname === path ? "bold" : "normal",
     borderRadius: "0.325rem",
-    transition: "all 0.1s ease",  // Dodavanje transition efekta
+    transition: "all 0.1s ease",  
   });
 
   const isOnTataMataSubpage = location.pathname.startsWith("/tatamata/");
@@ -31,8 +30,8 @@ const Header = () => {
     <Nav
       variant="tabs"
       activeKey={location.pathname}
-      className="flex-column flex-sm-row"   // Dodajemo responzivnost
-      style={{ borderBottom: "none"}}  // Uklanja liniju ispod navigacije
+      className="flex-column flex-sm-row"   
+      style={{ borderBottom: "none"}}  
     >
       <Nav.Item>
         <Nav.Link as={Link} to="/" style={getLinkStyle("/")}>
@@ -55,7 +54,6 @@ const Header = () => {
         </>
       )}
 
-      {/* Samo za korisnike koji nisu admini prikazujemo TataMata */}
       {user && !user.isAdmin && (
         <>
           <Nav.Item>

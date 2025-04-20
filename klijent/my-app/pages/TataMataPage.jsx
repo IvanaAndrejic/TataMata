@@ -4,6 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import TataMataGraphModal from '../modals/TataMataGraphModal';
 import TataMataResultModal from '../modals/TataMataResultModal';
 import TataMataModalError from '../modals/TataMataModalError';
+import { cleanupComponentStyles } from '../src/js/styleCleaner'; 
 
 export default function TataMataPage() {
   const { id } = useParams();
@@ -13,7 +14,7 @@ export default function TataMataPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showGraphModal, setShowGraphModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [buttonText, setButtonText] = useState('Odgovori na pitanje'); // Tekst dugmeta
+  const [buttonText, setButtonText] = useState('Odgovori na pitanje');
 
   useEffect(() => {
     const container = document.getElementById('tatamata-content');
@@ -24,7 +25,10 @@ export default function TataMataPage() {
       container.innerHTML = '';
     }
 
-    // Ukloniti dodavanje CSS fajlova
+    //Čišćenje stilova pre nego što učitamo nove stilove - pravilo problem
+    cleanupComponentStyles([`tm-${id}`]);
+
+    //Uklanjanje dodavanja CSS fajlova - takođe pravilo problem
     const oldStyles = document.querySelectorAll('link[data-tatamata]');
     oldStyles.forEach((style) => style.remove());
 
@@ -33,7 +37,7 @@ export default function TataMataPage() {
 
     const script = document.createElement('script');
     script.id = 'tatamata-script';
-    script.src = `/js/tatamata${id}.js`;
+    script.src = `/src/js/tatamata${id}.js`;
     script.async = true;
 
     const start = Date.now();
@@ -53,7 +57,7 @@ export default function TataMataPage() {
 
     window.showResultModal = (result) => {
       setResult(result);
-      setButtonText('Prikazi rezultat'); // Tekst dugmeta menja se kad se modal otvori
+      setButtonText('Prikazi rezultat');
       setShowResultModal(true);
     };
 
@@ -80,8 +84,8 @@ export default function TataMataPage() {
   }, [id]);
 
   const handleModalClose = () => {
-    setShowResultModal(false); // Zatvori modal
-    setButtonText('Odgovori na pitanje'); // Resetuj dugme na početni tekst
+    setShowResultModal(false);
+    setButtonText('Odgovori na pitanje');
   };
 
   return (
@@ -99,7 +103,7 @@ export default function TataMataPage() {
       <TataMataGraphModal show={showGraphModal} handleClose={() => setShowGraphModal(false)} message="Grafikon funkcije" />
       <TataMataResultModal 
         show={showResultModal} 
-        handleClose={handleModalClose} // Prosleđujemo funkciju za zatvaranje modala
+        handleClose={handleModalClose} 
         result={result} 
       />
       <TataMataModalError show={showErrorModal} handleClose={() => setShowErrorModal(false)} message={errorMessage} />

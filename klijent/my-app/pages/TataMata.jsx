@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { cleanupComponentStyles } from '../src/js/styleCleaner';
+import Spinner from 'react-bootstrap/Spinner';
 
-// Stilizovani elementi
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -15,12 +16,10 @@ const Container = styled.div`
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: left;
+  gap: 2rem;
   width: 100%;
   max-width: 1300px;
-  margin-top: 10px;
-  margin-left: 50px;
 `;
 
 const CardLink = styled(Link)`
@@ -37,7 +36,7 @@ const StyledCard = styled(Card)`
   margin-bottom: 1rem;
   box-shadow: 0 0 10px #0d1e49;
   border-radius: 5px;
-  background-color:rgba(254, 231, 175, 0.91);
+  background-color: rgba(254, 231, 175, 0.91);
 `;
 
 const CardBody = styled(Card.Body)`
@@ -47,18 +46,39 @@ const CardBody = styled(Card.Body)`
 
 const CardImage = styled.img`
   width: 100%;
-
   object-fit: cover;
   display: block;
   border-radius: 0.25rem;
-  
-  height: auto;  
-   
-
-  
+  height: auto;
 `;
 
 const TataMata = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    cleanupComponentStyles(['tm-tatamata']);
+
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 200);
+
+    return () => {
+      clearTimeout(timeout);
+      cleanupComponentStyles(['tm-tatamata']);
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center my-5" style={{ minHeight: '50vh' }}>
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
   return (
     <Container>
       <CardContainer>

@@ -9,8 +9,8 @@ const Footer = ({ isAdmin }) => {
         height: "60px",
         textAlign: "center",
         color: "#0D1E49",
-        lineHeight: "60px", // vertikalno centriranje teksta
-        position: isAdmin ? "static" : "fixed",  // Za admin je static, inače fixed
+        lineHeight: "60px", 
+        position: isAdmin ? "static" : "fixed",  
         bottom: 0,
         left: 0,
         width: "100%",

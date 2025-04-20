@@ -1,12 +1,20 @@
-// PROBLEMATIKA SA MEŠANJEM STILOVA
-// Proveravamo da li funkcija 'reloadScripts' već postoji
+//PROBLEMATIKA SA MEŠANJEM STILOVA
+function cleanupComponentStyles(excludePrefixes = []) {
+  const styles = document.querySelectorAll('[data-tatamata-style]');
+  styles.forEach(style => {
+    const stylePrefix = style.getAttribute('data-tatamata-style');
+    if (!excludePrefixes.includes(stylePrefix)) {
+      style.remove();
+    }
+  });
+}
+
 if (typeof window.reloadScripts === 'undefined') {
   window.reloadScripts = () => {
-    // Uklanjanje prethodnih stilova i skripti
-    document.querySelectorAll('style[data-tatamata-style="tm1"]').forEach(el => el.remove());
+    cleanupComponentStyles(['tm1']); 
+
     document.querySelectorAll('script[src]').forEach(script => script.remove());
 
-    // Učitavanje skripti
     loadExternalScripts().then(() => {
       injectTatamata1Styles();
       initializeContent();
@@ -37,54 +45,88 @@ if (typeof window.loadExternalScripts === 'undefined') {
   };
 }
 
-// Uklapanje stilova direktno u JS zbog problematike sa mešanjem stilova
+//Uklapanje stilova direktno u JS zbog problematike sa mešanjem stilova
 function injectTatamata1Styles() {
   const style = document.createElement('style');
   style.setAttribute('data-tatamata-style', 'tm1');
   style.innerHTML = `
     html, body {
-      margin: 0; padding: 0; height: 100%; 
+      margin: 0; 
+      padding: 0; 
+      height: 100%; 
       font-family: Arial, sans-serif;
     }
     #root {
-      height: 100%; display: flex; flex-direction: column;
+      height: 100%; 
+      display: flex; 
+      flex-direction: column;
     }
     header, footer {
       height: 60px;
     }
     #tatamata-content {
-      flex: 1; display: flex; justify-content: center; align-items: center;
-      padding: 1px; background-color: white;
+      flex: 1; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      padding: 1px; 
+      background-color: white;
     }
     .tm1-container {
-      text-align: center; background-color: white; padding: 10px;
-      border-radius: 8px; box-shadow: 0 0 10px #FDC840;
-      width: 100%; max-width: 1200px;
+      text-align: center; 
+      background-color: white; 
+      padding: 10px;
+      border-radius: 8px; 
+      box-shadow: 0 0 10px #FDC840;
+      width: 100%; 
+      max-width: 1200px;
     }
     .tm1-row {
-      display: flex; justify-content: space-between; gap: 20px;
+      display: flex; 
+      justify-content: space-between; 
+      gap: 20px;
     }
     .tm1-col-md-6 {
-      flex: 1; max-width: 48%; box-sizing: border-box;
+      flex: 1; 
+      max-width: 48%; 
+      box-sizing: border-box;
     }
     .tm1-card {
-      padding: 1.5em; width: 100%; max-width: 500px; margin: 0 auto;
-      border-radius: 8px; box-shadow: 0 0 10px #0D1E49; background-color: #f3f4f8;
+      padding: 1.5em; 
+      width: 100%; 
+      max-width: 500px; 
+      margin: 0 auto;
+      border-radius: 8px; 
+      box-shadow: 0 0 10px #0D1E49; 
+      background-color: #f3f4f8;
     }
     .tm1-input {
-      width: 100%; padding: 10px; font-size: 14px; margin-bottom: 20px;
-      border: 2px solid #ddd; border-radius: 5px;
+      width: 100%; 
+      padding: 10px; 
+      font-size: 14px; 
+      margin-bottom: 20px;
+      border: 2px solid #ddd; 
+      border-radius: 5px;
     }
     .tm1-button {
-      padding: 10px 20px; background-color: #0D1E49; color: white; margin-right: 10px;
-      border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
+      padding: 10px 20px; 
+      background-color: #0D1E49; 
+      color: white; 
+      margin-right: 10px;
+      border: none; 
+      border-radius: 5px; 
+      font-size: 16px; 
+      cursor: pointer;
     }
     .tm1-button:hover {
       background-color: #29324b;
     }
     .tm1-graph {
-      width: 100%; height: 300px; margin-top: 20px;
-      border: 1px solid #ddd; border-radius: 8px;
+      width: 100%; 
+      height: 300px; 
+      margin-top: 20px;
+      border: 1px solid #ddd; 
+      border-radius: 8px;
     }
     h1 {
       color: #FDC840;
@@ -93,7 +135,6 @@ function injectTatamata1Styles() {
   document.head.appendChild(style);
 }
 
-// Inicijalizacija
 if (typeof window.initializeContent === 'undefined') {
   window.initializeContent = function () {
     const container = document.getElementById('tatamata-content');
@@ -216,5 +257,4 @@ if (typeof window.initializeContent === 'undefined') {
   };
 }
 
-// Pokretanje
 window.reloadScripts?.();
