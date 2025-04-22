@@ -62,29 +62,29 @@ function injectTatamata1Styles() {
       flex-direction: column;
     }
     header, footer {
-      height: 60px;
+      height: 3.75rem;
     }
     #tatamata-content {
       flex: 1; 
       display: flex; 
       justify-content: center; 
       align-items: center;
-      padding: 1px; 
+      padding: 0.0625rem; 
       background-color: white;
     }
     .tm1-container {
       text-align: center; 
       background-color: white; 
-      padding: 10px;
-      border-radius: 8px; 
-      box-shadow: 0 0 10px #FDC840;
+      padding: 0.625rem;
+      border-radius: 0.5rem; 
+      box-shadow: 0 0 0.625rem #FDC840;
       width: 100%; 
-      max-width: 1200px;
+      max-width: 75rem;
     }
     .tm1-row {
       display: flex; 
       justify-content: space-between; 
-      gap: 20px;
+      gap: 1.25rem;
     }
     .tm1-col-md-6 {
       flex: 1; 
@@ -94,28 +94,28 @@ function injectTatamata1Styles() {
     .tm1-card {
       padding: 1.5em; 
       width: 100%; 
-      max-width: 500px; 
+      max-width: 31.25rem; 
       margin: 0 auto;
-      border-radius: 8px; 
-      box-shadow: 0 0 10px #0D1E49; 
+      border-radius: 1.5rem; 
+      box-shadow: 0 0 0.625rem #0D1E49; 
       background-color: #f3f4f8;
     }
     .tm1-input {
       width: 100%; 
-      padding: 10px; 
-      font-size: 14px; 
-      margin-bottom: 20px;
-      border: 2px solid #ddd; 
-      border-radius: 5px;
+      padding: 0.625rem; 
+      font-size: 0.875rem; 
+      margin-bottom: 1.25rem;
+      border: 0.125rem solid #ddd; 
+      border-radius: 0.3125rem;
     }
     .tm1-button {
-      padding: 10px 20px; 
+      padding: 0.625rem 1.25rem; 
       background-color: #0D1E49; 
       color: white; 
-      margin-right: 10px;
+      margin-right: 0.625rem;
       border: none; 
-      border-radius: 5px; 
-      font-size: 16px; 
+      border-radius: 0.3125rem; 
+      font-size: 1rem; 
       cursor: pointer;
     }
     .tm1-button:hover {
@@ -123,10 +123,10 @@ function injectTatamata1Styles() {
     }
     .tm1-graph {
       width: 100%; 
-      height: 300px; 
-      margin-top: 20px;
-      border: 1px solid #ddd; 
-      border-radius: 8px;
+      height: 18.75rem; 
+      margin-top: 1.25rem;
+      border: 0.0625rem solid #ddd; 
+      border-radius: 0.5rem;
     }
     h1 {
       color: #FDC840;

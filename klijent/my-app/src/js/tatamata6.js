@@ -35,7 +35,7 @@
 
       #tatamata-content {
         flex-grow: 1;
-        padding-bottom: 70px;
+        padding-bottom: 4.375rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -46,22 +46,22 @@
         justify-content: center;
         align-items: center;
         min-height: calc(100vh - 100px);
-        padding: 20px 0;
+        padding: 1.25rem 0;
       }
 
       .tm-container {
         width: 60%;
-        max-width: 900px;
+        max-width: 56.25rem;
         margin: 0 auto;
-        box-shadow: 0 0 10px #FDC840;
-        border-radius: 5px;
-        padding: 20px;
+        box-shadow: 0 0 0.625rem #FDC840;
+        border-radius: 0.3125rem;
+        padding: 1.25rem;
       }
 
       .tm-card {
-        margin-bottom: 20px;
-        box-shadow: 0 0 10px #0D1E49;
-        border-radius: 5px;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 0 0.625rem #0D1E49;
+        border-radius: 0.3125rem;
       }
 
       .tm-card-title {
@@ -71,7 +71,7 @@
       }
 
       .tm-card-body {
-        padding: 20px;
+        padding: 1.25rem;
       }
 
       .tm-textarea.form-control {
@@ -79,18 +79,18 @@
         height: 100px;
         margin-bottom: 1rem;
         padding: 0.75rem;
-        border-radius: 5px;
-        border: 1px solid #ddd;
+        border-radius: 0.3125rem;
+        border: 0.0625rem solid #ddd;
         background-color: rgba(254, 231, 175, 0.91);
       }
 
       .tm-btn-primary {
         background-color: #ff9800;
         color: white;
-        padding: 10px 20px;
+        padding: 0.625rem 1.25rem;
         font-size: 1rem;
         border: none;
-        border-radius: 5px;
+        border-radius: 0.3125rem;
         cursor: pointer;
       }
 
@@ -106,7 +106,7 @@
       .tm-answer {
         background-color: #f3f4f8;
         box-shadow: none;
-        border-radius: 5px;
+        border-radius: 0.3125rem;
       }
     `;
     document.head.appendChild(style);
@@ -177,8 +177,8 @@
     `;
 
     notificationContainer.style.position = 'fixed';
-    notificationContainer.style.top = '10px';
-    notificationContainer.style.right = '10px';
+    notificationContainer.style.top = '0.625rem';
+    notificationContainer.style.right = '0.625rem';
     notificationContainer.style.zIndex = '1050';
 
     document.body.appendChild(notificationContainer);

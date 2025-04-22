@@ -35,12 +35,12 @@
       }
 
       header {
-        height: 60px;
+        height: 3.75rem;
         flex-shrink: 0;
       }
 
       footer {
-        height: 60px;
+        height: 3.75rem;
         flex-shrink: 0;
       }
 
@@ -49,7 +49,7 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        padding: 20px;
+        padding: 1.25rem;
         background-color: white;
         overflow-y: auto;
         box-sizing: border-box;
@@ -58,22 +58,22 @@
       .tm5-card-container {
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 2rem;
         flex-wrap: wrap;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px #FDC840;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #FDC840;
         background: #fff;
         width: 100%;
-        max-width: 1200px;
+        max-width: 90rem;
         box-sizing: border-box;
       }
 
       .card5 {
-        width: 18rem;
-        box-shadow: 0 0 10px #0D1E49;
-        border-radius: 8px;
-        padding: 20px;
+        width: 15rem;
+        box-shadow: 0 0 0.625rem #0D1E49;
+        border-radius: 0.5rem;
+        padding: 1.25rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -85,12 +85,12 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 1.25rem;
       }
 
       .btn {
         margin-top: auto;
-        margin-bottom: 10px;
+        margin-bottom: 0.625rem;
         width: 50%;
       }
     `;

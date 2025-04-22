@@ -34,11 +34,11 @@
       }
 
       header {
-        height: 60px;
+        height: 3.75rem;
       }
 
       footer {
-        height: 60px;
+        height: 3.75rem;
       }
 
       #tatamata-content {
@@ -46,7 +46,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 10px;
+        padding: 0.625rem;
         background-color: white;
       }
 
@@ -55,22 +55,22 @@
         justify-content: center;
         text-align: center;
         background-color: white;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px #FDC840;
+        padding: 0.625rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #FDC840;
         width: 100%;
-        max-width: 1200px;
+        max-width: 75rem;
         margin-top: 3rem;
       }
 
       .tm2-card {
         padding: 1.5em;
         width: 100%;
-        max-width: 1000px;
+        max-width: 62.5rem;
         margin: 1em;
-        box-shadow: 0 0 10px #0D1E49;
+        box-shadow: 0 0 0.625rem #0D1E49;
         background-color: #f3f4f8;
-        border-radius: 8px;
+        border-radius: 0.5rem;
       }
 
       .tm2-card h1 {

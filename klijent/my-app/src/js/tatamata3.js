@@ -34,11 +34,11 @@
       }
 
       header {
-        height: 60px;
+        height: 3.75rem;
       }
 
       footer {
-        height: 60px;
+        height: 3.75rem;
       }
 
       .tm-tatamata-content {
@@ -46,7 +46,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 10px;
+        padding: 0.625rem;
         background-color: white;
       }
 
@@ -55,11 +55,11 @@
         justify-content: center;
         text-align: center;
         background-color: white;
-        padding: 5px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px #FDC840;
+        padding: 0.3125rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #FDC840;
         width: 100%;
-        max-width: 1200px;
+        max-width: 75rem;
         margin: 1em 1em;
       }
 
@@ -70,35 +70,35 @@
         width: 100%;
         max-width: 1000px;
         margin: 1em 1em;
-        box-shadow: 0 0 10px #0D1E49;
-        border-radius: 8px;
+        box-shadow: 0 0 0.625rem #0D1E49;
+        border-radius: 0.5rem;
         background-color: #f3f4f8;
       }
 
       .tm-h1, .tm-h3 {
         color: #FDC840;
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
       }
 
       .tm-input {
         width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        padding: 0.625rem;
+        font-size: 1rem;
+        margin-bottom: 0.625rem;
+        border-radius: 0.3125rem;
+        border: 0.0625rem solid #ccc;
       }
 
       .tm-button {
-        padding: 10px 15px;
-        font-size: 16px;
+        padding: 0.625rem 0.9375rem;
+        font-size: 1rem;
         background-color: #0D1E49;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 0.3125rem;
         cursor: pointer;
         width: 20%;
-        margin-top: 20px;
+        margin-top: 1.25rem;
       }
 
       .tm-button:hover {
@@ -106,8 +106,8 @@
       }
 
       .tm-result {
-        margin-top: 20px;
-        font-size: 18px;
+        margin-top: 1.25rem;
+        font-size: 1.125rem;
         color: #0D1E49;
       }
 
@@ -118,21 +118,21 @@
 
       .tm-input[type="number"] {
         width: 100%;
-        max-width: 250px;
-        padding: 10px 35px 10px 10px;
-        font-size: 14px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        max-width: 15.625rem;
+        padding: 0.625rem 2.1875rem 0.625rem 0.625rem;
+        font-size: 0.875rem;
+        margin-bottom: 0.625rem;
+        border-radius: 0.3125rem;
+        border: 0.0625rem solid #ccc;
         box-sizing: border-box;
       }
 
       .tm-clear-btn {
         position: absolute;
-        right: 10px;
+        right: 0.625rem;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 18px;
+        font-size: 1.125rem;
         color: #ccc;
         cursor: pointer;
         background: transparent;
@@ -157,8 +157,8 @@
     `;
 
     notificationContainer.style.position = 'fixed';
-    notificationContainer.style.top = '10px';
-    notificationContainer.style.right = '10px';
+    notificationContainer.style.top = '0.625rem';
+    notificationContainer.style.right = '0.625rem';
     notificationContainer.style.zIndex = '1050';
 
     document.body.appendChild(notificationContainer);

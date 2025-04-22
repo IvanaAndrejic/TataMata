@@ -10,7 +10,7 @@ const MainLayout = () => {
     <>
       <UserTag />
       <Header />
-      <main style={{ paddingTop: "30px", paddingBottom: "20px", flex: 1 }}> 
+      <main style={{ paddingTop: "1.875rem", paddingBottom: "1.25rem", flex: 1 }}> 
       <Outlet />
       </main>
       <Footer />

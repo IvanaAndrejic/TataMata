@@ -20,11 +20,11 @@ const Home = () => {
       header {
         background-color: #0D1E49;
         color: white;
-        padding: 5px 20px;
+        padding: 0.3125rem 1.25rem;
         text-align: center;
         font-size: 1.5rem;
-        height: 10px;
-        line-height: 10px;
+        height: 0.625ren;
+        line-height: 0.625rem;
         top: 0;
         width: 100%;
         z-index: 1000;
@@ -32,7 +32,7 @@ const Home = () => {
 
       main.home-main {
         margin: 0 !important;
-        padding-top: 60px;
+        padding-top: 3.75rem;
       }
 
       @keyframes fadeIn {
@@ -41,7 +41,7 @@ const Home = () => {
       }
 
       @keyframes slideIn {
-        0% { transform: translateY(20px); }
+        0% { transform: translateY(1.25rem); }
         100% { transform: translateY(0); }
       }
 
@@ -66,17 +66,17 @@ const Home = () => {
       <div
         className="container"
         style={{
-          maxWidth: "1000px",
+          maxWidth: "62.5rem",
           margin: "0 auto",
-          boxShadow: "0 0 10px #0D1E49",
-          borderRadius: "8px",
-          padding: "5px",
+          boxShadow: "0 0 0.625rem #0D1E49",
+          borderRadius: "0.5rem",
+          padding: "0.3125rem",
         }}
       >
       <div
           className="border border-warning p-3 rounded d-flex flex-row justify-content-center align-items-center"
           style={{
-            borderWidth: "1px",
+            borderWidth: "0.0625rem",
             borderColor: "#0D1E49",
             margin: "0",
           }}
@@ -85,9 +85,9 @@ const Home = () => {
           <div
               className="border p-1 rounded"
                 style={{
-                  borderWidth: "1px",
+                  borderWidth: "0.0625rem",
                   display: "inline-block",
-                  marginRight: "10px",
+                  marginRight: "0.625rem",
                 }}
           >
           <img
@@ -95,7 +95,7 @@ const Home = () => {
               alt="Tatamata"
               className="rounded"
               style={{
-                maxWidth: "500px",
+                maxWidth: "31.25rem",
                 width: "100%",
                 height: "auto",
                 borderRadius: "0.25rem",
@@ -112,7 +112,7 @@ const Home = () => {
                 animation:
                   "fadeIn 2s ease-out forwards, slideIn 1s ease-out forwards",
                 opacity: 0,
-                transform: "translateY(20px)",
+                transform: "translateY(1.25rem)",
               }}
             >
               Matematika je laka!

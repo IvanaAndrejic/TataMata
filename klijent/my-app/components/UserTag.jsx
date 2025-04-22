@@ -29,7 +29,7 @@ const UserTag = () => {
           padding: "0.35rem 0.8rem", 
           pointerEvents: "none",
           opacity: 0.9,
-          minWidth: "100px", 
+          minWidth: "6.25rem", 
         }}
       >
         <FaUser className="me-1" size={14} /> 
@@ -42,7 +42,7 @@ const UserTag = () => {
             style={{
               fontSize: "0.75rem", 
               padding: "0.2rem 0.5rem",
-              minWidth: "50px",
+              minWidth: "3.125rem",
             }}
           >
             Admin
