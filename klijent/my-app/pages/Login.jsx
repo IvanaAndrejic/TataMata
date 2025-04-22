@@ -21,14 +21,14 @@ const Login = () => {
 
     loginStyle.innerHTML = `
       #login-page {
-        width: 500px;
-        max-width: 1000px;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #0D1E49;
+        width: 31.25rem;
+        max-width: 62.5rem;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #0D1E49;
         text-align: center;
         margin: 0 auto;
-        margin-top: 10px;
+        margin-top: 0.625rem;
         background: #f3f4f8;
       }
 
@@ -41,11 +41,11 @@ const Login = () => {
       }
 
       #login-page .login-form {
-        margin-top: 20px;
+        margin-top: 1.25rem;
       }
 
       #login-page .login-form-group {
-        margin-bottom: 15px;
+        margin-bottom: 0.9375;
       }
 
       #login-page .login-label {
@@ -55,10 +55,10 @@ const Login = () => {
 
       #login-page .login-control {
         width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        margin-top: 10px;
+        padding: 0.625rem;
+        border-radius: 0.3125rem;
+        border: 0.0625rem solid #ccc;
+        margin-top: 0.625rem;
       }
 
       #login-page .login-btn {

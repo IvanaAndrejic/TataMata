@@ -134,17 +134,17 @@ const Admin = () => {
           }
 
           .container {
-            max-width: 800px;
-            margin-top: 10px;
-            box-shadow: 0 0 10px #FDC840;
-            padding: 20px;
-            border-radius: 8px;
+            max-width: 50rem;
+            margin-top: 0.625rem;
+            box-shadow: 0 0 0.625rem #FDC840;
+            padding: 1.25rem;
+            border-radius: 0.25rem;
           }
 
           .card {
-            box-shadow: 0 0 10px #0D1E49;
+            box-shadow: 0 0 0.625rem #0D1E49;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.25rem;
           }
 
           .answer {
@@ -153,9 +153,9 @@ const Admin = () => {
 
           .form-control {
             width: 100%;
-            height: 100px;
+            height: 6.25rem;
             font-size: 1rem;
-            padding: 10px;
+            padding: 0.625rem;
             resize: vertical;
           }
 
@@ -174,15 +174,15 @@ const Admin = () => {
 
           footer {
             color: #0D1E49;
-            line-height: 60px;
+            line-height: 3.75rem;
           }
 
           .custom-alert {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 1.25rem;
+            right: 1.25rem;
             z-index: 9999;
-            min-width: 280px;
+            min-width: 17.5rem;
           }
 
           .admin-q {

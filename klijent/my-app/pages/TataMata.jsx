@@ -19,13 +19,13 @@ const CardContainer = styled.div`
   justify-content: left;
   gap: 2rem;
   width: 100%;
-  max-width: 1300px;
+  max-width: 81.25rem;
 `;
 
 const CardLink = styled(Link)`
   text-decoration: none;
   width: calc(33.33% - 1rem);
-  max-width: 300px;
+  max-width: 18.75rem;
 `;
 
 const StyledCard = styled(Card)`
@@ -34,8 +34,8 @@ const StyledCard = styled(Card)`
   border-width: 1px;
   height: auto;
   margin-bottom: 1rem;
-  box-shadow: 0 0 10px #0d1e49;
-  border-radius: 5px;
+  box-shadow: 0 0 0.625rem #0d1e49;
+  border-radius: 0.5rem;
   background-color: rgba(254, 231, 175, 0.91);
 `;
 

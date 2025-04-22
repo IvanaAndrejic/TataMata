@@ -18,10 +18,10 @@ const Logout = () => {
     logoutStyle.innerHTML = `
       
       .logout-container {
-        max-width: 500px;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #0D1E49;
+        max-width: 31.25rem;
+        padding: 2.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #0D1E49;
         text-align: center;
         margin: 0 auto;
         background: #f3f4f8;
@@ -41,7 +41,7 @@ const Logout = () => {
         color: #FDC840;
         margin-top: 2rem;
         margin-bottom: 3rem;
-        font-weight: bold; /* Ispravljena greška u pisanju */
+        font-weight: bold; 
         animation: fadeIn 2s ease-out forwards, slideIn 1s ease-out forwards;
         opacity: 0;
         transform: translateY(20px);
@@ -58,7 +58,7 @@ const Logout = () => {
 
       @keyframes slideIn {
         0% {
-          transform: translateY(20px);
+          transform: translateY(1.25rem);
         }
         100% {
           transform: translateY(0);

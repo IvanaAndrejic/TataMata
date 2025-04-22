@@ -30,8 +30,8 @@
     `;
 
     notificationContainer.style.position = 'fixed';
-    notificationContainer.style.top = '10px';
-    notificationContainer.style.right = '10px';
+    notificationContainer.style.top = '0.625rem';
+    notificationContainer.style.right = '0.625rem';
     notificationContainer.style.zIndex = '1050';
 
     document.body.appendChild(notificationContainer);
@@ -71,8 +71,8 @@
         justify-content: center;
         align-items: center;
         background-color: white;
-        padding: 20px;
-        margin-bottom: 60px;
+        padding: 1.25rem;
+        margin-bottom: 3.75rem;
     }
 
     .tm-container4 {
@@ -81,32 +81,32 @@
         align-items: center;
         text-align: center;
         background-color: white;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #FDC840;
+        padding: 0.625rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #FDC840;
         width: 60%;
-        max-width: 1000px;
-        height: 500px; 
+        max-width: 62.5rem;
+        height: 31.25rem; 
         margin: 0 auto; 
     }
 
     .tm-quiz-container {
         width: 100%;
-        max-width: 500px; 
+        max-width: 31.25rem; 
         background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px ;
+        padding: 1.875rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem ;
         text-align: center;
-        margin: 5px auto;
+        margin: 0.3125rem auto;
         background-color: rgba(254, 231, 175, 0.91);
 
     }
 
     .tm-quiz-container h2 {
         color: #FDC840;
-        margin-bottom: 20px;
-        font-size: 20px;
+        margin-bottom: 1.25rem;
+        font-size: 1.25rem;
     }
 
     .tm-question-container {
@@ -116,12 +116,12 @@
     .tm-option {
         display: flex;
         align-items: center;
-        margin-bottom: 12px;
-        font-size: 16px;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
         color: #0D1E49;
         background-color: #f9f9f9;
-        padding: 10px;
-        border-radius: 6px;
+        padding: 0.625rem;
+        border-radius: 0.375rem;
         transition: background-color 0.2s ease;
         cursor: pointer;
     }
@@ -131,23 +131,23 @@
     }
 
     .tm-option input[type="radio"] {
-        margin-right: 10px;
+        margin-right: 0.625rem;
         accent-color: #FDC840;
         transform: scale(1.2);
     }
 
     .tm-button4 {
-        padding: 12px 20px;
-        font-size: 16px;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
         background-color: #0D1E49;
         color: white;
         border: none;
-        border-radius: 6px;
+        border-radius: 0.375rem;
         cursor: pointer;
-        margin: 15px 8px 0;
+        margin: 0.9375rem 0.5rem 0;
         transition: background-color 0.3s ease;
         width: 45%;
-        max-width: 200px;
+        max-width: 12.5rem;
     }
 
     .tm-button4:hover {
@@ -155,11 +155,11 @@
     }
 
     .tm-result-container {
-        margin-top: 25px;
+        margin-top: 1.5625rem;
     }
 
     .tm-result-text {
-        font-size: 18px;
+        font-size: 1.125rem;
         color: #0D1E49;
         font-weight: bold;
     }

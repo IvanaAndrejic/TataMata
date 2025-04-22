@@ -6,10 +6,10 @@ const Footer = ({ isAdmin }) => {
       style={{
         backgroundColor: "white",
         padding: "0",
-        height: "60px",
+        height: "3.75rem",
         textAlign: "center",
         color: "#0D1E49",
-        lineHeight: "60px", 
+        lineHeight: "3.75rem", 
         position: isAdmin ? "static" : "fixed",  
         bottom: 0,
         left: 0,

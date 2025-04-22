@@ -24,14 +24,14 @@ const Register = () => {
 
     registerStyle.innerHTML = `
       .register-container {
-        width: 500px;
-        max-width: 1000px;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #0D1E49;
+        width: 31.25rem;
+        max-width: 62.5rem;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0.625rem #0D1E49;
         text-align: center;
         margin: 0 auto;
-        margin-top: 10px;
+        margin-top: 0.625rem;
         background: #f3f4f8;
       }
 
@@ -59,14 +59,13 @@ const Register = () => {
         margin-top: 1.5rem;
       }
 
-      /* Dodavanje margine i padding aspecifične za Register komponentu */
       body, main {
         margin: 0;
         padding: 0;
       }
 
       main {
-        padding-top: 80px; /* Prilagođavanje paddinga */
+        padding-top: 5rem; /* Prilagođavanje paddinga */
       }
     `;
     document.head.appendChild(registerStyle);

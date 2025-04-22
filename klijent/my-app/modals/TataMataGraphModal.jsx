@@ -8,7 +8,7 @@ export default function TataMataGraphModal({ show, handleClose }) {
         <Modal.Title>Grafik funkcije</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div id="graph-modal-container" style={{ width: "100%", height: "400px" }}></div>
+        <div id="graph-modal-container" style={{ width: "100%", height: "25rem" }}></div>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="warning" onClick={handleClose}>
