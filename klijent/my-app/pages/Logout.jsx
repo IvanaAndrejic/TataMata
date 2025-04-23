@@ -25,6 +25,11 @@ const Logout = () => {
         text-align: center;
         margin: 0 auto;
         background: #f3f4f8;
+        transition: transform 0.3s ease;
+      }
+
+      .logout-container:hover {
+        transform: scale(1.03);
       }
 
       .logout-btn {

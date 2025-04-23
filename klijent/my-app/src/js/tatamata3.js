@@ -25,6 +25,7 @@
         padding: 0;
         height: 100%;
         font-family: Arial, sans-serif;
+        background: #f3f4f8;
       }
 
       #root {

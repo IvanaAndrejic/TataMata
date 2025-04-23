@@ -1,15 +1,15 @@
 import React from "react";
 
-const Footer = ({ isAdmin }) => {
+const Footer = ({ isAdmin, bgColor }) => {
   return (
     <footer
       style={{
-        backgroundColor: "white",
+        backgroundColor: bgColor || "#fff !important",
         padding: "0",
-        height: "3.75rem",
+        height: "3.5rem",
         textAlign: "center",
         color: "#0D1E49",
-        lineHeight: "3.75rem", 
+        lineHeight: "3.5rem", 
         position: isAdmin ? "static" : "fixed",  
         bottom: 0,
         left: 0,

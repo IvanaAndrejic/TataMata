@@ -23,8 +23,9 @@
       html, body {
         margin: 0;
         padding: 0;
-        height: 100%;
+        min-height: 100vh;
         font-family: Arial, sans-serif;
+        background: #f3f4f8;
       }
 
       #root {
@@ -56,6 +57,7 @@
         box-shadow: 0 0 0.625rem #FDC840;
         border-radius: 0.3125rem;
         padding: 1.25rem;
+        background: #fff !important;
       }
 
       .tm-card {
@@ -107,6 +109,10 @@
         background-color: #f3f4f8;
         box-shadow: none;
         border-radius: 0.3125rem;
+      }
+
+      footer {
+        background: #fff;
       }
     `;
     document.head.appendChild(style);

@@ -69,7 +69,7 @@ const Admin = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <div className="container mt-4 mb-4" style={{ flexGrow: 1 }}>
+      <div className="container mt-4 mb-3" style={{ flexGrow: 1 }}>
         <h2 className="admin-q mb-4">Odgovori na pitanja</h2>
 
         {statusMessage && (
@@ -131,20 +131,22 @@ const Admin = () => {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            background: #f3f4f8;
           }
 
           .container {
-            max-width: 50rem;
+            max-width: 80rem;
             margin-top: 0.625rem;
             box-shadow: 0 0 0.625rem #FDC840;
             padding: 1.25rem;
-            border-radius: 0.25rem;
+            border-radius: 0.5rem;
+            background: #fff;
           }
 
           .card {
             box-shadow: 0 0 0.625rem #0D1E49;
             border: none;
-            border-radius: 0.25rem;
+            border-radius: 0.5rem;
           }
 
           .answer {
@@ -174,7 +176,7 @@ const Admin = () => {
 
           footer {
             color: #0D1E49;
-            line-height: 3.75rem;
+            background: #fff;
           }
 
           .custom-alert {

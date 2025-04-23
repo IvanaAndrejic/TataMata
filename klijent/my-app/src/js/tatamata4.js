@@ -57,6 +57,7 @@
         padding: 0;
         height: 100%;
         font-family: Arial, sans-serif;
+        background: #f3f4f8;
     }
 
     #root {
@@ -80,31 +81,30 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: white;
-        padding: 0.625rem;
+        padding: 2rem;
         border-radius: 0.5rem;
         box-shadow: 0 0 0.625rem #FDC840;
         width: 60%;
         max-width: 62.5rem;
         height: 31.25rem; 
         margin: 0 auto; 
+        background: #fff;
     }
 
     .tm-quiz-container {
         width: 100%;
         max-width: 31.25rem; 
-        background-color: white;
-        padding: 1.875rem;
+        padding: 1rem;
         border-radius: 0.5rem;
-        box-shadow: 0 0 0.625rem ;
+        box-shadow: 0 0 0.625rem #0D1E49;
         text-align: center;
-        margin: 0.3125rem auto;
+        margin: 0 auto;
         background-color: rgba(254, 231, 175, 0.91);
 
     }
 
     .tm-quiz-container h2 {
-        color: #FDC840;
+        color: #0D1E49;
         margin-bottom: 1.25rem;
         font-size: 1.25rem;
     }
@@ -132,7 +132,7 @@
 
     .tm-option input[type="radio"] {
         margin-right: 0.625rem;
-        accent-color: #FDC840;
+        accent-color: #0D1E49;
         transform: scale(1.2);
     }
 
@@ -167,12 +167,31 @@
     .tm-hidden {
         display: none;
     }
+    
+    #quizProgressBar {
+        background-color: #FDC840;
+        color: #0D1E49;
+        font-weight: bold;
+        font-size: 0.875rem;
+        transition: width 0.4s ease;
+    }
+
+    .tm-quiz-container .progress {
+        background-color: #fff6dc;
+        border-radius: 0.375rem;
+        overflow: hidden;
+        box-shadow: inset 0 0 0.25rem rgba(0,0,0,0.1);
+    }
   ;`
   document.head.appendChild(style);
 
   container.innerHTML = `
     <div class="tm-container4 mt-3">
       <div class="tm-quiz-container">
+          <div class="progress mb-3" style = "height: 1.5rem;">
+            <div id="quizProgressBar" class="progress-bar" role="progressbar" style="width: 0%";aria-valuenow="0"
+              aria-valuemin="0" aria-valuemax="100">0%</div>
+          </div>
           <div class="tm-question-container"></div>
           <button class="tm-button4" id="answerBtn">Odgovori na pitanje</button>
           <button class="tm-button4 tm-hidden" id="showResultsBtn">Prikaži rezultat</button>
@@ -213,6 +232,15 @@
   let correctAnswers = 0;
   let totalAnswered = 0;
 
+  function updateProgressBar() {
+    const progress = Math.round((totalAnswered / quizData.length) * 100);
+    const bar = document.getElementById("quizProgressBar");
+    bar.style.width = `${progress}%`;
+    bar.setAttribute("aria-valuenow", progress);
+    bar.textContent = `${progress}%`;
+  }
+  
+
   function loadQuestion() {
     const currentQuestion = quizData[currentQuestionIndex];
     const questionContainer = document.querySelector(".tm-question-container");
@@ -240,6 +268,7 @@
 
     if (selectedAnswer) {
       totalAnswered++;
+      updateProgressBar();
       if (selectedAnswer.value === quizData[currentQuestionIndex].correct) {
         correctAnswers++;
       }
@@ -265,6 +294,12 @@
 
     if (window.showResultModal) {
       window.showResultModal(resultText); 
+    }
+
+    const progressBar = document.getElementById("quizProgressBar");
+    if (progressBar) {
+      progressBar.style.width = "0%";
+      progressBar.innerText = "0%";
     }
 
     currentQuestionIndex = 0;

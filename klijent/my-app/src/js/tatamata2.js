@@ -25,6 +25,7 @@
         padding: 0;
         height: 100%;
         font-family: Arial, sans-serif;
+        background: #f3f4f8;
       }
 
       #root {
@@ -47,17 +48,16 @@
         justify-content: center;
         align-items: center;
         padding: 0.625rem;
-        background-color: white;
       }
 
       .tm2-container {
         display: flex;
         justify-content: center;
         text-align: center;
-        background-color: white;
+        background-color: rgba(254, 231, 175, 0.91);
         padding: 0.625rem;
         border-radius: 0.5rem;
-        box-shadow: 0 0 0.625rem #FDC840;
+        box-shadow: 0 0 0.625rem #0D1E49;
         width: 100%;
         max-width: 75rem;
         margin-top: 3rem;
@@ -68,7 +68,7 @@
         width: 100%;
         max-width: 62.5rem;
         margin: 1em;
-        box-shadow: 0 0 0.625rem #0D1E49;
+        box-shadow: 0 0 0.625rem #FDC840;
         background-color: #f3f4f8;
         border-radius: 0.5rem;
       }

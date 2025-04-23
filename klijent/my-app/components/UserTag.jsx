@@ -30,6 +30,7 @@ const UserTag = () => {
           pointerEvents: "none",
           opacity: 0.9,
           minWidth: "6.25rem", 
+          backgroundColor: "#fff"
         }}
       >
         <FaUser className="me-1" size={14} /> 

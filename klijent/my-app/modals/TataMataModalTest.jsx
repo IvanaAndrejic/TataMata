@@ -11,7 +11,7 @@ const TataMataModalTest = ({ show, handleClose, result, resetTest }) => {
         <p>{result}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="warning" onClick={handleClose}>
           Zatvori
         </Button>
         <Button variant="primary" onClick={resetTest}>
