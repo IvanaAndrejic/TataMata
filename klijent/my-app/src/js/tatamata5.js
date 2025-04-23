@@ -26,6 +26,7 @@
         padding: 0;
         height: 100%;
         font-family: Arial, sans-serif;
+        background: #f3f4f8 !important;
       }
 
       #root {
@@ -34,15 +35,6 @@
         flex-direction: column;
       }
 
-      header {
-        height: 3.75rem;
-        flex-shrink: 0;
-      }
-
-      footer {
-        height: 3.75rem;
-        flex-shrink: 0;
-      }
 
       #tatamata-content {
         flex: 1;
@@ -50,7 +42,6 @@
         justify-content: center;
         align-items: flex-start;
         padding: 1.25rem;
-        background-color: white;
         overflow-y: auto;
         box-sizing: border-box;
       }
@@ -58,12 +49,12 @@
       .tm5-card-container {
         display: flex;
         justify-content: center;
-        gap: 2rem;
+        gap: 2.5rem;
         flex-wrap: wrap;
         padding: 2rem;
         border-radius: 0.5rem;
         box-shadow: 0 0 0.625rem #FDC840;
-        background: #fff;
+        background: #f3f4f8;
         width: 100%;
         max-width: 90rem;
         box-sizing: border-box;
@@ -78,6 +69,11 @@
         flex-direction: column;
         justify-content: space-between;
         background-color: #fff;
+        transition: transform 0.3s ease;
+      }
+
+      .card5:hover {
+        transform: scale(1.03);
       }
 
       .card-body {
@@ -91,7 +87,7 @@
       .btn {
         margin-top: auto;
         margin-bottom: 0.625rem;
-        width: 50%;
+        width: 60%;
       }
     `;
     document.head.appendChild(style);

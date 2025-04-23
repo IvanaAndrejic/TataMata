@@ -15,20 +15,8 @@ const Home = () => {
     homeStyle.innerHTML = `
       body.home-page {
         min-height: 100vh;
-      }
-      
-      header {
-        background-color: #0D1E49;
-        color: white;
-        padding: 0.3125rem 1.25rem;
-        text-align: center;
-        font-size: 1.5rem;
-        height: 0.625ren;
-        line-height: 0.625rem;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-      }
+        background: #f3f4f8;
+      }    
 
       main.home-main {
         margin: 0 !important;
@@ -50,6 +38,18 @@ const Home = () => {
         opacity: 0;
         transform: translateY(20px);
       }
+
+      .container {
+        transition: transform 0.3s ease; /* Tranzicija za transformaciju */
+      }
+
+      .container:hover {
+        transform: scale(1.03);
+      }
+
+      footer {
+        background: #f3f4f8 !important;
+      }
     `;
     document.head.appendChild(homeStyle);
 
@@ -67,10 +67,11 @@ const Home = () => {
         className="container"
         style={{
           maxWidth: "62.5rem",
-          margin: "0 auto",
+          margin: "0.5rem auto",
           boxShadow: "0 0 0.625rem #0D1E49",
           borderRadius: "0.5rem",
-          padding: "0.3125rem",
+          padding: "1rem",
+          background: "#fff",
         }}
       >
       <div
@@ -78,7 +79,9 @@ const Home = () => {
           style={{
             borderWidth: "0.0625rem",
             borderColor: "#0D1E49",
+            background: "rgba(254, 231, 175, 0.91)",
             margin: "0",
+            color: " #0D1E49"
           }}
       >
       <div className="col-lg-4 text-center mb-4 mb-lg-0">

@@ -4,7 +4,7 @@ import { Modal, Button } from "react-bootstrap";
 export default function TataMataGraphModal({ show, handleClose }) {
   return (
     <Modal show={show} onHide={handleClose} size="lg">
-      <Modal.Header className="bg-secondary text-white">
+      <Modal.Header className="bg-warning text-white">
         <Modal.Title>Grafik funkcije</Modal.Title>
       </Modal.Header>
       <Modal.Body>

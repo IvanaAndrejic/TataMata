@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 const TataMataResultModal = ({ show, handleClose, result }) => {
   return (
     <Modal show={show} onHide={handleClose} centered size="m" animation>
-      <Modal.Header className="bg-secondary text-white">
+      <Modal.Header className="bg-warning text-white">
         <Modal.Title>Rezultat</Modal.Title>
       </Modal.Header>
       <Modal.Body className="d-flex justify-content-center align-items-center">

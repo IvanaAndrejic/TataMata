@@ -55,6 +55,7 @@ function injectTatamata1Styles() {
       padding: 0; 
       height: 100%; 
       font-family: Arial, sans-serif;
+      background: #f3f4f8;     
     }
     #root {
       height: 100%; 
@@ -70,16 +71,17 @@ function injectTatamata1Styles() {
       justify-content: center; 
       align-items: center;
       padding: 0.0625rem; 
-      background-color: white;
+      
     }
     .tm1-container {
       text-align: center; 
-      background-color: white; 
+      
       padding: 0.625rem;
       border-radius: 0.5rem; 
-      box-shadow: 0 0 0.625rem #FDC840;
+      box-shadow: 0 0 0.625rem #0D1E49;
       width: 100%; 
       max-width: 75rem;
+      background-color: rgba(254, 231, 175, 0.91);
     }
     .tm1-row {
       display: flex; 
@@ -96,8 +98,8 @@ function injectTatamata1Styles() {
       width: 100%; 
       max-width: 31.25rem; 
       margin: 0 auto;
-      border-radius: 1.5rem; 
-      box-shadow: 0 0 0.625rem #0D1E49; 
+      border-radius: 0.5rem; 
+      box-shadow: 0 0 0.625rem #FDC840; 
       background-color: #f3f4f8;
     }
     .tm1-input {
@@ -129,7 +131,7 @@ function injectTatamata1Styles() {
       border-radius: 0.5rem;
     }
     h1 {
-      color: #FDC840;
+      color: #0D1E49;
     }
   `;
   document.head.appendChild(style);
