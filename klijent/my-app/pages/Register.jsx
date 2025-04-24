@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { cleanupComponentStyles } from '../src/js/styleCleaner';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -15,6 +16,9 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const recaptchaRef = useRef(null);
+
+
   useEffect(() => {
 
     cleanupComponentStyles(['register']); //Čisti stilove da ne bi dolazilo do mešanja
@@ -24,21 +28,25 @@ const Register = () => {
 
     registerStyle.innerHTML = `
       .register-container {
-        width: 31.25rem;
+        width: 25rem;
         max-width: 62.5rem;
-        padding: 1.25rem;
+        min-width: 20rem;
+        padding-top: 0.5rem;
+        padding-bottom: 1rem;
         border-radius: 0.5rem;
         box-shadow: 0 0 0.625rem #0D1E49;
         text-align: center;
         margin: 0 auto;
-        margin-top: 0.625rem;
+        margin-top: 0.5rem;
         background: #f3f4f8;
+        overflow: visible;
+        min-height: 30rem; 
       }
 
       .register-title {
         color: #FDC840;
-        margin-top: 2rem;
-        margin-bottom: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
         font-weight: bold;
       }
 
@@ -56,7 +64,7 @@ const Register = () => {
       .register-label {
         font-weight: bold;
         color: #0D1E49;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
       }
 
       body, main {
@@ -82,6 +90,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const recaptchaValue = recaptchaRef.current.getValue();
+    console.log("ReCAPTCHA Token:", recaptchaValue); // Dodaj ovu liniju
+
+    if (!recaptchaValue) {
+      toast.error("Molimo Vas da potvrdite da niste robot.");
+      return;
+    }  
+
     if (
           isNaN(userData.year) ||
           userData.year < 1930 ||
@@ -92,7 +108,12 @@ const Register = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", userData);
+      const payload = {
+        ...userData,
+        recaptchaToken: recaptchaValue, 
+      };
+
+      await axios.post("http://localhost:5000/api/auth/register", payload);
       toast.success("Uspešna registracija!");
       navigate("/login");
     } catch (error) {
@@ -102,7 +123,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <h2 className="register-title mt-3">Registracija novih korisnika</h2>
+      <h2 className="register-title mt-1">Unesite podatke</h2>
       <div className="row">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="display-flex justify-content-center">
@@ -122,7 +143,7 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label className="mt-2 register-label">Password</Form.Label>
+            <Form.Label className="mt-1 register-label">Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
@@ -138,7 +159,7 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label className="mt-2 register-label">Name</Form.Label>
+            <Form.Label className="mt-1 register-label">Name</Form.Label>
             <Form.Control
               type="text"
               name="name"
@@ -154,7 +175,7 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label className="mt-2 register-label">Year</Form.Label>
+            <Form.Label className="mt-1 register-label">Year</Form.Label>
             <Form.Control
               type="number"
               name="year"
@@ -168,6 +189,12 @@ const Register = () => {
               required
             />
           </Form.Group>
+          <div className="mt-3 d-flex justify-content-center" style={{ minHeight: "5rem" }}>
+            <ReCAPTCHA
+              sitekey="6LchlyIrAAAAAM0DIIzNOQRZKahUXiW39e5FbxY7"
+              ref={recaptchaRef}
+            />
+          </div>
           <Button type="submit" className="register-btn" variant="warning">
             Registruj se
           </Button>
