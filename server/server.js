@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const Question = require('./models/Question');
+const axios = require("axios");
 
 const app = express();
 app.use(cors());
@@ -21,7 +22,7 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
   year: { type: Number, required: true },
-  isAdmin: { type: Boolean, default: false }
+  isAdmin: { type: Boolean, default: false },
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -49,21 +50,45 @@ const authenticate = (req, res, next) => {
 // REGISTER
 app.post("/api/auth/register", async (req, res) => {
   try {
-    const { error } = userSchema.validate(req.body);
+    const { email, password, name, year, recaptchaToken } = req.body;
+    console.log(req.body);  // Dodajte ovo da biste videli šta šaljete u telo zahteva
+
+
+    // 1. reCAPTCHA provera
+    if (!recaptchaToken) return res.status(400).json({ message: "Nedostaje reCAPTCHA token" });
+
+    const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
+      params: {
+        secret: process.env.RECAPTCHA_SECRET_KEY,
+        response: recaptchaToken,
+      },
+    });
+    console.log(response.data); // Dodajte ovo da vidite odgovor sa reCAPTCHA
+
+    if (!response.data.success) {
+      return res.status(400).json({ message: "reCAPTCHA verifikacija nije uspela" });
+    }
+
+    // 2. Validacija korisničkih podataka
+    const { error } = userSchema.validate({ email, password, name, year });
     if (error) return res.status(400).json({ message: error.details[0].message });
 
-    const { email, password, name, year } = req.body;
+    // 3. Provera da li korisnik već postoji
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "Email already exists" });
+    if (existingUser) return res.status(400).json({ message: "Email već postoji" });
 
+    // 4. Hash lozinke i kreiranje korisnika
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ email, password: hashedPassword, name, year });
 
-    res.status(201).json({ message: "User registered successfully", user: newUser });
+    res.status(201).json({ message: "Uspešna registracija", user: newUser });
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message });
+    console.error("Greška u registraciji:", err);
+
+    res.status(500).json({ message: "Greška na serveru", error: err.message });
   }
 });
+
 
 // Login route
 app.post("/api/auth/login", async (req, res) => {
