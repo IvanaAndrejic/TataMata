@@ -8,6 +8,7 @@ const Joi = require("joi");
 const Question = require('./models/Question');
 const axios = require("axios");
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -36,13 +37,18 @@ const userSchema = Joi.object({
 
 const authenticate = (req, res, next) => {
   const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
-  if (!token) return res.status(401).json({ message: "No token, authorization denied" });
+  if (!token) { return res.status(401).json({ message: "No token, authorization denied" });
+  console.log("No token received");  // Dodajte log za pomoć
+}
+
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
+    console.log("JWT verification failed:", err);  // Dodajte log za pomoć
+
     res.status(401).json({ message: "Invalid token" });
   }
 };
@@ -202,13 +208,21 @@ app.post("/api/auth/make-admin", async (req, res) => {
 // POST QUESTION
 app.post('/api/questions', authenticate, async (req, res) => {
   try {
+    console.log('Decoded user:', req.user);
+    console.log('Pitanje:', req.body.question);
     const { question } = req.body;
     if (!question) return res.status(400).json({ message: "Pitanje je obavezno" });
 
     const newQuestion = new Question({
       question,
-      userId: req.user.id
+      userId: req.user.id,
+      isReadByAdmin: false,
+      isReadByUser: true
     });
+    
+
+    console.log("New question object:", newQuestion); // Loguj objekat pre nego što ga sačuvaš
+
 
     await newQuestion.save();
     res.status(201).json({ message: "Pitanje uspešno postavljeno", question: newQuestion });
@@ -241,6 +255,8 @@ app.put('/api/questions/:id/answer', authenticate, async (req, res) => {
 
     question.answer = answer;
     question.adminAnswered = true;
+    question.isReadByUser = false;
+
     await question.save();
 
     res.status(200).json(question);
@@ -248,5 +264,37 @@ app.put('/api/questions/:id/answer', authenticate, async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
+
+// Vraća broj nepročitanih poruka
+app.get('/api/questions/unread-count', authenticate, async (req, res) => {
+  try {
+    let count;
+    if (req.user.isAdmin) {
+      count = await Question.countDocuments({ isReadByAdmin: false });
+    } else {
+      count = await Question.countDocuments({ userId: req.user.id, isReadByUser: false });
+    }
+    res.json({ unreadCount: count });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+// Admin pročitao poruke
+app.put('/api/questions/mark-read-admin', authenticate, async (req, res) => {
+  if (!req.user.isAdmin) return res.status(403).json({ message: "Zabranjeno" });
+  await Question.updateMany({ isReadByAdmin: false }, { isReadByAdmin: true });
+  res.json({ message: "Označene kao pročitane" });
+});
+
+// Klijent pročitao poruke
+app.put('/api/questions/mark-read-user', authenticate, async (req, res) => {
+  await Question.updateMany({ userId: req.user.id, isReadByUser: false }, { isReadByUser: true });
+  res.json({ message: "Označene kao pročitane" });
+});
+
+
+
+
 
 app.listen(5000, () => console.log("Server running on port 5000"));
