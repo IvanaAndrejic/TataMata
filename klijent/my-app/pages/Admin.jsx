@@ -10,6 +10,7 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState(null);
   const [statusVariant, setStatusVariant] = useState("success");
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
 
@@ -26,6 +27,9 @@ const Admin = () => {
     try {
       const response = await axios.get("http://localhost:5000/api/questions");
       setQuestions(response.data);
+
+      const unreadCount = response.data.filter((q) => !q.answer).length;
+      setUnreadMessagesCount(unreadCount); // Ažuriraj broj nepročitanih poruka
     } catch (error) {
       console.error("Greška pri dohvatanju pitanja:", error);
       setStatusMessage("Neuspelo učitavanje pitanja.");
@@ -53,6 +57,7 @@ const Admin = () => {
         { answer: trimmedAnswer }
       );
       setAnswers((prev) => ({ ...prev, [questionId]: "" }));
+
       setQuestions((prevQuestions) =>
         prevQuestions.map((q) =>
           q._id === questionId ? { ...q, answer: trimmedAnswer } : q
@@ -60,6 +65,8 @@ const Admin = () => {
       );
       setStatusMessage("Odgovor je uspešno poslat!");
       setStatusVariant("success");
+      window.dispatchEvent(new Event("refreshUnreadBadge"));
+      setUnreadMessagesCount((prevCount) => prevCount - 1); // Smanji broj nepročitanih poruka za 1
     } catch (error) {
       console.error("Greška pri slanju odgovora:", error);
       setStatusMessage("Neuspelo slanje odgovora.");
