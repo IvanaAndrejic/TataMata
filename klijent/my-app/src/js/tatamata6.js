@@ -194,9 +194,15 @@
     }, 3000);
   }
 
+  
+
+  
+
+
   cleanupComponentStyles(["tm6"]);
   addInlineStyles();
   initializeContent();
+  
 
   document.getElementById("submitQuestionBtn").addEventListener("click", async () => {
     const questionInput = document.getElementById("questionInput");
@@ -237,6 +243,4 @@
   });
 
   renderMessages();
-
-  window.addEventListener("beforeunload", () => cleanupComponentStyles(["tm6"]));
 })();
