@@ -5,6 +5,7 @@ const Footer = ({ isAdmin, bgColor }) => {
     <footer
       style={{
         backgroundColor: bgColor || "#fff !important",
+        fontFamily: "Lexend, sans-serif",
         padding: "0",
         height: "3.5rem",
         textAlign: "center",

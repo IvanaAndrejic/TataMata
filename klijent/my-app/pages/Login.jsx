@@ -20,6 +20,10 @@ const Login = () => {
     loginStyle.setAttribute("data-component-style", "login"); 
 
     loginStyle.innerHTML = `
+      body {
+        font-family: "Lexend", sans-serif; 
+      }
+        
       #login-page {
         width: 31.25rem;
         max-width: 62.5rem;

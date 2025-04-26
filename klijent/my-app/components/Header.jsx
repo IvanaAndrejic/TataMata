@@ -29,7 +29,7 @@ const Header = () => {
   const isOnTataMataSubpage = location.pathname.startsWith("/tatamata/");
 
   return (
-    <header style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
+    <header style={{ display: 'flex', justifyContent: 'center', width: '100%', fontFamily: 'Lexend, sans-serif'}}>
       <Nav
         variant="tabs"
         activeKey={location.pathname}

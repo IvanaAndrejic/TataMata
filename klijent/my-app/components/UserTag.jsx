@@ -54,6 +54,7 @@ const UserTag = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
+        fontFamily: "Lexend, sans-serif"
       }}
     >
       <Button

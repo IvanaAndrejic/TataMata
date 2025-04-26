@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 function TataMataModalError({ show, handleClose }) {
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} style={{fontFamily: "Lexend, sans-serif"}}>
       <Modal.Header className="bg-warning text-white">
         <Modal.Title>Greška</Modal.Title>
       </Modal.Header>

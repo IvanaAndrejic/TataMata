@@ -27,6 +27,10 @@ const Register = () => {
     registerStyle.setAttribute("data-component-style", "register"); //BITNO!
 
     registerStyle.innerHTML = `
+      body {
+        font-family: "Lexend", sans-serif; 
+      }
+
       .register-container {
         width: 25rem;
         max-width: 62.5rem;
