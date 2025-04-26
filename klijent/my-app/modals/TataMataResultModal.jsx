@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 const TataMataResultModal = ({ show, handleClose, result }) => {
   return (
-    <Modal show={show} onHide={handleClose} centered size="m" animation>
+    <Modal show={show} onHide={handleClose} centered size="m" style={{fontFamily: "Lexend, sans-serif"}} animation>
       <Modal.Header className="bg-warning text-white">
         <Modal.Title>Rezultat</Modal.Title>
       </Modal.Header>

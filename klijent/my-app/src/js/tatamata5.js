@@ -25,7 +25,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        font-family: Arial, sans-serif;
+        font-family: "Lexend", sans-serif; 
         background: #f3f4f8 !important;
       }
 
@@ -49,19 +49,19 @@
       .tm5-card-container {
         display: flex;
         justify-content: center;
-        gap: 2.5rem;
+        gap: 3rem;
         flex-wrap: wrap;
         padding: 2rem;
         border-radius: 0.5rem;
         box-shadow: 0 0 0.625rem #FDC840;
         background: #f3f4f8;
         width: 100%;
-        max-width: 90rem;
+        max-width: 80rem;
         box-sizing: border-box;
       }
 
       .card5 {
-        width: 15rem;
+        width: 16rem;
         box-shadow: 0 0 0.625rem #0D1E49;
         border-radius: 0.5rem;
         padding: 1.25rem;
@@ -70,6 +70,7 @@
         justify-content: space-between;
         background-color: #fff;
         transition: transform 0.3s ease;
+        font-family: "Lexend", sans-serif; 
       }
 
       .card5:hover {
@@ -100,21 +101,21 @@
     const cardsData = [
       {
         img: "/images/card1.png",
-        title: "Baza prijemnih ispita iz matematike",
+        title: "PRIJEMNI ISPIT",
         text: "Uspešno se pripremi za polaganje prijemnog ispita na ETF-u, FON-u, MATF-u i Građevinskom fakultetu. SREĆNO!",
         buttonText: "Detaljnije",
         link: "https://matemanija.com/prijemni/"
       },
       {
         img: "/images/card2.png",
-        title: "Matematika za četvrti razred gimnazije",
+        title: "GRADIVO",
         text: "Savladaj bez muke matematičke lekcije uz pomoć detaljno obrađenih nastavnih jedinica. ISTRAJ!",
-        buttonText: "Pročitaj više",
+        buttonText: "Nauči više",
         link: "https://www.krugizdavackakuca.rs/images/Pripreme/Pripreme%204M.pdf"
       },
       {
         img: "/images/card3.png",
-        title: "Baza takmičarskih zadataka",
+        title: "TAKMIČENJE",
         text: "Nadogradi svoje znanje i proveri svoju logiku kroz zadatke za učenike koji žele da znaju više. BRAVO!",
         buttonText: "Saznaj više",
         link: "https://imomath.com/srb/index.cgi?page=zadaciSaTakmichenja"
@@ -129,7 +130,7 @@
           <div class="card5">
             <img src="${card.img}" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">${card.title}</h5>
+              <h5 class="card-title mb-2">${card.title}</h5>
               <p class="card-text">${card.text}</p>
               <a href="${card.link}" class="btn btn-warning">${card.buttonText}</a>
             </div>

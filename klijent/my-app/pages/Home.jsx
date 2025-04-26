@@ -16,6 +16,7 @@ const Home = () => {
       body.home-page {
         min-height: 100vh;
         background: #f3f4f8;
+        font-family: "Lexend", sans-serif; 
       }    
 
       main.home-main {
@@ -37,6 +38,7 @@ const Home = () => {
         animation: fadeIn 2s ease-out forwards, slideIn 1s ease-out forwards;
         opacity: 0;
         transform: translateY(20px);
+        font-family: "Fugaz One", sans-serif;
       }
 
       .container {

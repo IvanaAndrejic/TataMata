@@ -16,6 +16,10 @@ const Logout = () => {
 
     const logoutStyle = document.createElement("style");
     logoutStyle.innerHTML = `
+
+      body {
+        font-family: "Lexend", sans-serif; 
+      }
       
       .logout-container {
         max-width: 31.25rem;
@@ -45,11 +49,11 @@ const Logout = () => {
       .logout-title {
         color: #FDC840;
         margin-top: 2rem;
-        margin-bottom: 3rem;
-        font-weight: bold; 
+        margin-bottom: 3rem; 
         animation: fadeIn 2s ease-out forwards, slideIn 1s ease-out forwards;
         opacity: 0;
         transform: translateY(20px);
+        font-family: "Fugaz One", sans-serif;
       }
 
       @keyframes fadeIn {
@@ -86,7 +90,7 @@ const Logout = () => {
   return (
     <main>
       <div className="logout-container">
-        <h2 className='logout-title mb-4 mt-2'>BEZ MUKE NEMA NAUKE!</h2>
+        <h2 className='logout-title mb-4 mt-2'>Bez muke nema nauke!</h2>
         <Button className="logout-btn" variant="warning" onClick={handleLogout}>
           Izloguj se
         </Button>

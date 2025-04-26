@@ -1,6 +1,6 @@
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
   line-height: 1.5;
   font-weight: 400;
 
@@ -30,6 +30,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: "Lexend", sans-serif;
+  
+
 }
 
 h1 {
@@ -68,3 +71,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.lexend-lex {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.fugaz-one-regular {
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+

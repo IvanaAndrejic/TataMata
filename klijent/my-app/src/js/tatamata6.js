@@ -24,7 +24,7 @@
         margin: 0;
         padding: 0;
         min-height: 100vh;
-        font-family: Arial, sans-serif;
+        font-family: "Lexend", sans-serif; 
         background: #f3f4f8;
       }
 
@@ -193,11 +193,6 @@
       notificationContainer.remove();
     }, 3000);
   }
-
-  
-
-  
-
 
   cleanupComponentStyles(["tm6"]);
   addInlineStyles();

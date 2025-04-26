@@ -15,6 +15,7 @@ const TataMata = () => {
     style.innerHTML = `
       body {
         background-color: #f3f4f8 !important;
+        font-family: "Lexend", sans-serif; 
       }
 
       .tm-tatamata-container {

@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 const TataMataModalTest = ({ show, handleClose, result, resetTest }) => {
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} style={{fontFamily: "Lexend, sans-serif"}}>
       <Modal.Header closeButton>
         <Modal.Title>Rezultat testa</Modal.Title>
       </Modal.Header>
