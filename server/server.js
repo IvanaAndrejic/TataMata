@@ -38,7 +38,6 @@ const userSchema = Joi.object({
 const authenticate = (req, res, next) => {
   const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
   if (!token) { return res.status(401).json({ message: "No token, authorization denied" });
-  console.log("No token received");  // Dodajte log za pomoć
 }
 
 
@@ -47,8 +46,6 @@ const authenticate = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    console.log("JWT verification failed:", err);  // Dodajte log za pomoć
-
     res.status(401).json({ message: "Invalid token" });
   }
 };
@@ -57,8 +54,6 @@ const authenticate = (req, res, next) => {
 app.post("/api/auth/register", async (req, res) => {
   try {
     const { email, password, name, year, recaptchaToken } = req.body;
-    console.log(req.body);  // Dodajte ovo da biste videli šta šaljete u telo zahteva
-
 
     // 1. reCAPTCHA provera
     if (!recaptchaToken) return res.status(400).json({ message: "Nedostaje reCAPTCHA token" });
@@ -69,7 +64,6 @@ app.post("/api/auth/register", async (req, res) => {
         response: recaptchaToken,
       },
     });
-    console.log(response.data); // Dodajte ovo da vidite odgovor sa reCAPTCHA
 
     if (!response.data.success) {
       return res.status(400).json({ message: "reCAPTCHA verifikacija nije uspela" });
@@ -90,13 +84,12 @@ app.post("/api/auth/register", async (req, res) => {
     res.status(201).json({ message: "Uspešna registracija", user: newUser });
   } catch (err) {
     console.error("Greška u registraciji:", err);
-
     res.status(500).json({ message: "Greška na serveru", error: err.message });
   }
 });
 
 
-// Login route
+// LOGIN
 app.post("/api/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -123,8 +116,7 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-
-// ME
+// ME - ne koristim, ali je ostavljeno za dalju nadogradnju
 app.get("/api/auth/me", (req, res) => {
   try {
     const token = req.headers.authorization;
@@ -137,7 +129,7 @@ app.get("/api/auth/me", (req, res) => {
   }
 });
 
-// UPDATE
+// UPDATE - ne koristim, ali je ostavljeno za dalju nadogradnju
 app.put("/api/auth/update", async (req, res) => {
   try {
     const token = req.headers.authorization;
@@ -158,7 +150,7 @@ app.put("/api/auth/update", async (req, res) => {
   }
 });
 
-// DELETE
+// DELETE - ne koristim, ali je ostavljeno za dalju nadogradnju
 app.delete("/api/auth/delete", async (req, res) => {
   try {
     const token = req.headers.authorization;
@@ -220,10 +212,6 @@ app.post('/api/questions', authenticate, async (req, res) => {
       isReadByUser: true
     });
     
-
-    console.log("New question object:", newQuestion); // Loguj objekat pre nego što ga sačuvaš
-
-
     await newQuestion.save();
     res.status(201).json({ message: "Pitanje uspešno postavljeno", question: newQuestion });
   } catch (err) {
