@@ -27,13 +27,13 @@
         font-family: "Lexend", sans-serif; 
         background: #f3f4f8;
       }
-
+  
       #root {
         height: 100%;
         display: flex;
         flex-direction: column;
       }
-
+  
       #tatamata-content {
         flex-grow: 1;
         padding-bottom: 4.375rem;
@@ -41,7 +41,7 @@
         justify-content: center;
         align-items: center;
       }
-
+  
       .tm-wrapper {
         display: flex;
         justify-content: center;
@@ -49,7 +49,7 @@
         min-height: calc(100vh - 100px);
         padding: 1.25rem 0;
       }
-
+  
       .tm-container {
         width: 60%;
         max-width: 56.25rem;
@@ -59,23 +59,23 @@
         padding: 1.25rem;
         background: #fff !important;
       }
-
+  
       .tm-card {
         margin-bottom: 1.25rem;
         box-shadow: 0 0 0.625rem #0D1E49;
         border-radius: 0.3125rem;
       }
-
+  
       .tm-card-title {
         font-size: 1.5rem;
         margin-bottom: 1rem;
         color: #FDC840;
       }
-
+  
       .tm-card-body {
         padding: 1.25rem;
       }
-
+  
       .tm-textarea.form-control {
         width: 100%;
         height: 100px;
@@ -85,7 +85,7 @@
         border: 0.0625rem solid #ddd;
         background-color: rgba(254, 231, 175, 0.91);
       }
-
+  
       .tm-btn-primary {
         background-color: #ff9800;
         color: white;
@@ -95,29 +95,58 @@
         border-radius: 0.3125rem;
         cursor: pointer;
       }
-
+  
       .tm-btn-primary:hover {
         background-color: #e68900;
       }
-
+  
       .tm-h5 {
         font-size: 1.2rem;
         color: #0D1E49;
       }
-
+  
       .tm-answer {
         background-color: #f3f4f8;
         box-shadow: none;
         border-radius: 0.3125rem;
       }
-
+  
       footer {
         background: #fff;
+      }
+  
+      /* Responzivnost */
+      @media (max-width: 768px) {
+        .tm-container {
+          width: 90%; 
+          padding: 1rem;  
+        }
+  
+        .tm-card-title {
+          font-size: 1.2rem;  
+        }
+  
+        .tm-btn-primary {
+          width: 100%;  
+          padding: 0.75rem;  
+        }
+  
+        .tm-h5 {
+          font-size: 1rem; 
+        }
+  
+        .tm-textarea.form-control {
+          height: 80px;  
+        }
+  
+        .tm-wrapper {
+          padding: 1rem 0;  
+        }
       }
     `;
     document.head.appendChild(style);
   }
-
+  
   function initializeContent() {
     const container = document.getElementById("tatamata-content");
     if (!container) return;
@@ -129,7 +158,8 @@
             <div class="tm-card-body">
               <h4 class="tm-card-title mb-3">Postavi pitanje profesoru</h4>
               <div class="tm-mb-3">
-                <textarea class="tm-textarea form-control" id="questionInput" rows="3" placeholder="Unesite Vaše pitanje..."></textarea>
+                <textarea class="tm-textarea form-control" id="questionInput" rows="3" placeholder="Unesite Vaše pitanje...">
+                </textarea>
               </div>
               <button class="tm-btn-primary mt-4" id="submitQuestionBtn">Pošaljite pitanje</button>
             </div>
@@ -198,7 +228,6 @@
   addInlineStyles();
   initializeContent();
   
-
   document.getElementById("submitQuestionBtn").addEventListener("click", async () => {
     const questionInput = document.getElementById("questionInput");
     const questionText = questionInput.value.trim();

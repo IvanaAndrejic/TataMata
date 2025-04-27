@@ -4,7 +4,6 @@ import { cleanupComponentStyles } from '../src/js/styleCleaner';
 
 const Home = () => {
   useEffect(() => {
-    
     cleanupComponentStyles(['home']); 
 
     document.body.classList.add("home-page");
@@ -16,12 +15,18 @@ const Home = () => {
       body.home-page {
         min-height: 100vh;
         background: #f3f4f8;
-        font-family: "Lexend", sans-serif; 
-      }    
+        font-family: "Lexend", sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        padding-top: 5rem;
+      }
 
       main.home-main {
         margin: 0 !important;
-        padding-top: 3.75rem;
+        padding-top: 3.75rem; /* Dodajemo padding-top da se ne bi preklapao sa menijem */    
+        min-height: 100vh;
+        z-index: 1; 
       }
 
       @keyframes fadeIn {
@@ -42,7 +47,19 @@ const Home = () => {
       }
 
       .container {
-        transition: transform 0.3s ease; /* Tranzicija za transformaciju */
+        transition: transform 0.3s ease;
+        box-shadow: 0 0 0.625rem #0D1E49;
+        border-radius: 0.5rem;
+        background: #fff;
+        padding: 1rem;
+        width: 100%;
+        max-width: 56.25rem; 
+        margin: 0 auto; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: left; 
       }
 
       .container:hover {
@@ -52,59 +69,117 @@ const Home = () => {
       footer {
         background: #f3f4f8 !important;
       }
-    `;
+
+      /* Responzivnost */
+      @media (max-width: 768px) {
+        main.home-main {
+          padding-top: 4rem; /* Osiguravamo da div ne preklapa hamburger meni */
+        }
+
+        .container {
+          padding: 1rem;
+          width: 100%;
+          max-width: 100%;
+          text-align: center;
+          margin: 0;
+        }
+
+        .col-lg-4, .col-lg-8 {
+          width: 100%;
+          text-align: center;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        .lead {
+          font-size: 1rem;
+        }
+
+        body.home-page {
+          padding: 0.5rem;
+        }
+
+        .logo {
+          display: none;
+        }
+      }
+
+      @media (min-width: 480px) and (max-width: 768px) {
+        .logo {
+          display: block; 
+        }
+      }
+
+      @media (min-width: 768px) {
+        .logo {
+          display: block;
+        }
+      }
+
+      body.home-page {
+        display: flex;
+        justify-content: center;
+      }
+      @media (max-width: 480px) {
+        h2 {
+          font-size: 1.25rem;
+          margin-right: 1.5rem;
+        }
+
+        .lead {
+          font-size: 0.95rem;
+          margin-right: 1rem;
+        }
+      }
+    ;`
     document.head.appendChild(homeStyle);
 
     return () => {
-      
       document.body.classList.remove("home-page");
       document.querySelector("main").classList.remove("home-main");
-      document.head.removeChild(homeStyle); // Očisti stilove kada se komponenta ugasi
+      document.head.removeChild(homeStyle);
     };
   }, []);
 
   return (
     <main>
-      <div
-        className="container"
-        style={{
-          maxWidth: "62.5rem",
-          margin: "0.5rem auto",
-          boxShadow: "0 0 0.625rem #0D1E49",
-          borderRadius: "0.5rem",
-          padding: "1rem",
-          background: "#fff",
-        }}
-      >
-      <div
+      <div className="container">
+        <div
           className="border border-warning p-3 rounded d-flex flex-row justify-content-center align-items-center"
           style={{
             borderWidth: "0.0625rem",
             borderColor: "#0D1E49",
             background: "rgba(254, 231, 175, 0.91)",
             margin: "0",
-            color: " #0D1E49"
+            color: "#0D1E49",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-      >
-      <div className="col-lg-4 text-center mb-4 mb-lg-0">
-          <div
-              className="border p-1 rounded"
-                style={{
-                  borderWidth: "0.0625rem",
-                  display: "inline-block",
-                  marginRight: "0.625rem",
-                }}
-          >
-          <img
-              src={logo}
-              alt="Tatamata"
-              className="rounded"
+        >
+          <div className="col-lg-4 text-center mb-4 mb-lg-0">
+            <div
+              className="border p-1 rounded logo"
               style={{
-                maxWidth: "31.25rem",
-                width: "100%",
-                height: "auto",
-                borderRadius: "0.25rem",
+                borderWidth: "0.0625rem",
+                display: "flex",  
+                justifyContent: "center",  
+                alignItems: "center",  
+                marginRight: "0.625rem",
               }}
+            >
+              <img
+                src={logo}
+                alt="Tatamata"
+                className="rounded"
+                style={{
+                  maxWidth: "100%",  
+                  height: "auto",   
+                  borderRadius: "0.25rem",
+                }}
               />
             </div>
           </div>
@@ -114,8 +189,7 @@ const Home = () => {
               className="mb-4"
               style={{
                 fontSize: "2rem",
-                animation:
-                  "fadeIn 2s ease-out forwards, slideIn 1s ease-out forwards",
+                animation: "fadeIn 2s ease-out forwards, slideIn 1s ease-out forwards",
                 opacity: 0,
                 transform: "translateY(1.25rem)",
               }}

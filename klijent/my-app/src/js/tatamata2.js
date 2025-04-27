@@ -23,9 +23,9 @@
       html, body {
         margin: 0;
         padding: 0;
-        height: 100%;
+        height: 100vh;
         font-family: "Lexend", sans-serif; 
-        background: #f3f4f8;
+        background: #f3f4f8 !important;
       }
 
       #root {
@@ -53,6 +53,7 @@
       .tm2-container {
         display: flex;
         justify-content: center;
+        align-items: center; 
         text-align: center;
         background-color: rgba(254, 231, 175, 0.91);
         padding: 0.625rem;
@@ -60,7 +61,8 @@
         box-shadow: 0 0 0.625rem #0D1E49;
         width: 100%;
         max-width: 75rem;
-        margin-top: 3rem;
+        margin-top: 2rem;
+        box-sizing: border-box;
       }
 
       .tm2-card {
@@ -71,6 +73,7 @@
         box-shadow: 0 0 0.625rem #FDC840;
         background-color: #f3f4f8;
         border-radius: 0.5rem;
+        box-sizing: border-box;
       }
 
       .tm2-card h1 {
@@ -93,6 +96,37 @@
 
       .tm2-card hr {
         margin: 2rem 0 1rem;
+      }
+
+      /* Responzivnost */
+      @media (max-width: 768px) {
+        .tm2-container {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .tm2-card {
+          margin: 0.5rem;
+          padding: 1rem;
+        }
+
+        .tm2-card p {
+          font-size: 1.2em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .tm2-card p {
+          font-size: 1em;
+        }
+
+        .tm2-card h1 {
+          font-size: 1.5em;
+        }
+
+        .tm2-container {
+          max-width: 90%;
+        }
       }
     `;
     document.head.appendChild(style);

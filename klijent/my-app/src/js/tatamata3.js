@@ -21,27 +21,23 @@
     style.setAttribute("data-tatamata-style", "tm3");
     style.innerHTML = `
       html, body {
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
-        height: 100%;
+        height: 100vh;
         font-family: "Lexend", sans-serif; 
-        background: #f3f4f8;
+        background: #f3f4f8 !important;
       }
-
+  
       #root {
         height: 100%;
         display: flex;
         flex-direction: column;
       }
-
-      header {
+  
+      header, footer {
         height: 3.75rem;
       }
-
-      footer {
-        height: 3.75rem;
-      }
-
+  
       .tm-tatamata-content {
         flex: 1;
         display: flex;
@@ -49,103 +45,116 @@
         align-items: center;
         padding: 0.625rem;
         background-color: white;
+        margin 0 auto;
       }
-
+  
       .tm-container3 {
         display: flex;
         justify-content: center;
         text-align: center;
         background-color: white;
-        padding: 0.3125rem;
+        padding: 0.625rem;
         border-radius: 0.5rem;
         box-shadow: 0 0 0.625rem #FDC840;
         width: 100%;
         max-width: 75rem;
-        margin: 1em 1em;
+        margin 0 auto;
       }
-
+  
       .tm-card3 {
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 100%;
-        max-width: 1000px;
-        margin: 1em 1em;
+        max-width: 62.5rem;
+        margin: 1rem;
         box-shadow: 0 0 0.625rem #0D1E49;
         border-radius: 0.5rem;
         background-color: #f3f4f8;
+        padding: 2rem;
       }
-
+  
       .tm-h1, .tm-h3 {
         color: #FDC840;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
       }
-
+  
       .tm-input {
         width: 100%;
-        padding: 0.625rem;
-        font-size: 1rem;
-        margin-bottom: 0.625rem;
-        border-radius: 0.3125rem;
-        border: 0.0625rem solid #ccc;
+        max-width: 15rem;
+        padding: 0.75rem 1rem;
+        font-size: clamp(0.875rem, 2vw, 1.125rem);
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
       }
-
+  
       .tm-button {
-        padding: 0.625rem 0.9375rem;
-        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        font-size: clamp(0.875rem, 2vw, 1.125rem);
         background-color: #0D1E49;
         color: white;
         border: none;
-        border-radius: 0.3125rem;
+        border-radius: 0.5rem;
         cursor: pointer;
-        width: 20%;
-        margin-top: 1.25rem;
+        width: clamp(40%, 20vw, 20%);
+        min-width: 8rem;
+        max-width: 100%;
+        margin-top: 1.5rem;
+        transition: background-color 0.3s ease;
       }
-
+  
       .tm-button:hover {
         background-color: #29324b;
       }
-
+  
       .tm-result {
-        margin-top: 1.25rem;
-        font-size: 1.125rem;
+        margin-top: 1.5rem;
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
         color: #0D1E49;
       }
-
+  
       .tm-input-container {
         position: relative;
         width: 100%;
       }
-
-      .tm-input[type="number"] {
-        width: 100%;
-        max-width: 15.625rem;
-        padding: 0.625rem 2.1875rem 0.625rem 0.625rem;
-        font-size: 0.875rem;
-        margin-bottom: 0.625rem;
-        border-radius: 0.3125rem;
-        border: 0.0625rem solid #ccc;
-        box-sizing: border-box;
-      }
-
+  
       .tm-clear-btn {
         position: absolute;
-        right: 0.625rem;
+        right: 1rem;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 1.125rem;
+        font-size: clamp(1rem, 2vw, 1.5rem);
         color: #ccc;
         cursor: pointer;
         background: transparent;
         border: none;
       }
-
+  
       .tm-clear-btn:hover {
         color: #FDC840;
+      }
+  
+      @media (max-width: 600px) {
+        .tm-container3 {
+          margin: 0.5rem;
+          padding: 0.5rem;
+        }
+  
+        .tm-card3 {
+          padding: 1rem;
+        }
+  
+        .tm-button {
+          width: 100%;
+        }
       }
     `;
     document.head.appendChild(style);
   }
+  
 
   function showNotification(message, type = 'warning') {
     const notificationContainer = document.createElement("div");

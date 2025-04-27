@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    cleanupComponentStyles(['login']); //Čisti stilove
+    cleanupComponentStyles(['login']); // Čisti stilove
 
     const loginStyle = document.createElement("style");
     loginStyle.setAttribute("data-component-style", "login"); 
@@ -49,7 +49,7 @@ const Login = () => {
       }
 
       #login-page .login-form-group {
-        margin-bottom: 0.9375;
+        margin-bottom: 0.9375rem;
       }
 
       #login-page .login-label {
@@ -76,6 +76,23 @@ const Login = () => {
       #login-page .login-btn:hover {
         background-color: #f0a500 !important;
         border-color: #f0a500 !important;
+      }
+
+      /* RESPONSIVE DEO */
+      @media (max-width: 768px) {
+        #login-page {
+          width: 90%;
+          padding: 1rem;
+          margin-top: 1rem;
+        }
+
+        #login-page .login-title {
+          font-size: 1.5rem;
+        }
+
+        #login-page .login-control {
+          width: 100%;
+        }
       }
     `;
     document.head.appendChild(loginStyle);

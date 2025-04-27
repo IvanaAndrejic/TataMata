@@ -58,13 +58,19 @@ const UnreadAnswerClient = ({ onUpdate }) => {
       style={{
         backgroundColor: "red",
         color: "white",
-        borderRadius: "9999px",
-        padding: "0.25rem 0.5rem",
+        borderRadius: "50%",
+        padding: "0.3rem 0.6rem",
         fontSize: "0.75rem",
         fontWeight: "bold",
-        position: "absolute",
-        top: "-5px",
-        right: "-5px",
+        lineHeight: "1",
+        position: "absolute", // Pozicioniranje crvene notifikacije za korisnika ukoliko je dobio odgovor od admina
+        top: "-0.5rem",
+        right: "-0.5rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minWidth: "1.5rem",
+        height: "1.5rem",
       }}
     >
       {unreadCount}
