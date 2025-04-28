@@ -24,6 +24,7 @@ const TataMata = () => {
         align-items: flex-start;
         min-height: 100vh;
         padding: 1rem;
+        margin: 0 auto;
       }
 
       .tm-card-container {
@@ -32,20 +33,21 @@ const TataMata = () => {
         justify-content: center;
         gap: 3rem;
         width: 100%;
-        max-width: 81.25rem;
+        max-width: 81.25rem; 
         box-sizing: border-box;
         margin-left: 2.5rem;
       }
 
       .tm-card-link {
         text-decoration: none;
-        width: calc(33.33% - 1rem);
-        max-width: 18.75rem;
+        width: calc(33.33% - 1rem); /* 3 kartice po redu */
+        max-width: 18.75rem; /* Max širina kartice */
       }
 
       .tm-card {
-        max-width: 15rem;
-        min-height: 15rem;
+        width: 100%; 
+        aspect-ratio: 1; /* Kvadratne kartice */
+        max-width: 15rem; 
         margin-bottom: 1rem;
         box-shadow: 0 0 0.625rem #0d1e49;
         border-radius: 0.5rem;
@@ -63,17 +65,37 @@ const TataMata = () => {
         height: 100%;
         padding: 1rem;
         box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .tm-card-image {
         width: 100%;
-        display: block;
+        height: 100%; 
+        object-fit: cover; 
         border-radius: 0.25rem;
-        height: auto;
       }
 
       footer {
         background-color: #f3f4f8 !important;
+      }
+
+      /* Mobilni prikaz - od 768px do 486px */
+      @media (max-width: 768px) {
+        .tm-card-container {
+          margin-left: 0;
+        }
+        .tm-card-link {
+          width: calc(50% - 1rem); /* 2 kartice po redu */
+        }
+      }
+
+      /* Mobilni prikaz - od 485px do 320px */
+      @media (max-width: 485px) {
+        .tm-card-link {
+          width: 100%; /* 1 kartica po redu */
+        }
       }
     `;
     document.head.appendChild(style);

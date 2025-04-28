@@ -15,23 +15,30 @@ const Register = () => {
   });
 
   const navigate = useNavigate();
-
   const recaptchaRef = useRef(null);
 
-
   useEffect(() => {
-
-    cleanupComponentStyles(['register']); //Čisti stilove da ne bi dolazilo do mešanja
+    cleanupComponentStyles(['register']); // Čisti stilove da ne bi dolazilo do mešanja
 
     const registerStyle = document.createElement("style");
-    registerStyle.setAttribute("data-component-style", "register"); //BITNO!
+    registerStyle.setAttribute("data-component-style", "register"); // BITNO!
 
     registerStyle.innerHTML = `
       body {
         font-family: "Lexend", sans-serif; 
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; 
       }
 
       .register-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 25rem;
         max-width: 62.5rem;
         min-width: 20rem;
@@ -41,10 +48,8 @@ const Register = () => {
         box-shadow: 0 0 0.625rem #0D1E49;
         text-align: center;
         margin: 0 auto;
-        margin-top: 0.5rem;
         background: #f3f4f8;
         overflow: visible;
-        min-height: 30rem; 
       }
 
       .register-title {
@@ -71,13 +76,28 @@ const Register = () => {
         margin-top: 1rem;
       }
 
-      body, main {
-        margin: 0;
-        padding: 0;
+      main {
+        padding-top: 5rem;
       }
 
-      main {
-        padding-top: 5rem; /* Prilagođavanje paddinga */
+      @media (max-width: 768px) {
+        .register-container {
+          width: 90%;
+          padding: 1rem;
+        }
+        .register-title {
+          font-size: 1.5rem;
+        }
+        .register-btn {
+          width: 100%;
+        }
+        .register-label {
+          font-size: 0.9rem;
+        }
+        .register-container input,
+        .register-container button {
+          width: 100%;
+        }
       }
     `;
     document.head.appendChild(registerStyle);
@@ -95,7 +115,7 @@ const Register = () => {
     e.preventDefault();
 
     const recaptchaValue = recaptchaRef.current.getValue();
-    console.log("ReCAPTCHA Token:", recaptchaValue); // Dodaj ovu liniju
+    console.log("ReCAPTCHA Token:", recaptchaValue); 
 
     if (!recaptchaValue) {
       toast.error("Molimo Vas da potvrdite da niste robot.");

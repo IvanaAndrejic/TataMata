@@ -84,7 +84,7 @@
         padding: 2rem;
         border-radius: 0.5rem;
         box-shadow: 0 0 0.625rem #FDC840;
-        width: 60%;
+        width: 50%;
         max-width: 62.5rem;
         height: 31.25rem; 
         margin: 0 auto; 
@@ -181,6 +181,91 @@
         border-radius: 0.375rem;
         overflow: hidden;
         box-shadow: inset 0 0 0.25rem rgba(0,0,0,0.1);
+    }
+    /* Responzivnost */
+    @media (max-width: 1024px) {
+      .tm-container4 {
+        width: 80%;
+        height: auto;
+        padding: 1.5rem;
+      }
+      .tm-quiz-container {
+        max-width: 25rem;
+      }
+      .tm-button4 {
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tm-container4 {
+        width: 90%;
+        height: auto;
+        padding: 1rem;
+        box-shadow: 0 0 0.5rem #FDC840;
+      }
+      .tm-quiz-container {
+        padding: 0.75rem;
+      }
+      .tm-quiz-container h2 {
+        font-size: 1.125rem;
+      }
+      .tm-option {
+        font-size: 0.9375rem;
+        padding: 0.5rem;
+      }
+      .tm-button4 {
+        font-size: 0.9375rem;
+        padding: 0.625rem;
+        width: 100%;
+        max-width: 100%;
+      }
+      .tm-result-text {
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .tm-container4 {
+        width: 50%; 
+        max-width: none; 
+        margin: 0 auto; 
+        padding: 2rem; 
+      }
+    }
+
+      .tm-button4 {
+         margin: 0 auto;
+        width: 100%;
+      }
+
+    @media (max-width: 480px) {
+      .tm-container4 {
+        width: 95%;
+        padding: 1rem;
+        margin-bottom: 2rem;
+      }
+      .tm-quiz-container {
+        padding: 0.5rem;
+      }
+      .tm-quiz-container h2 {
+        font-size: 1rem;
+      }
+      .tm-option {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+      }
+      .tm-button4 {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+        width: 100%;
+        margin: 0.5rem 0 0;
+      }
+
+      .tm-result-text {
+        font-size: 0.9375rem;
+      }
     }
   ;`
   document.head.appendChild(style);

@@ -9,10 +9,10 @@ const Logout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  //Čišćenje stilova specifičnih za Logout komponentu
+  // Čišćenje stilova specifičnih za Logout komponentu
   useEffect(() => {
 
-    cleanupComponentStyles(['logout']); 
+    cleanupComponentStyles(['logout']); // Čisti stilove specifične za Logout
 
     const logoutStyle = document.createElement("style");
     logoutStyle.innerHTML = `
@@ -20,7 +20,7 @@ const Logout = () => {
       body {
         font-family: "Lexend", sans-serif; 
       }
-      
+
       .logout-container {
         max-width: 31.25rem;
         padding: 2.5rem;
@@ -41,6 +41,7 @@ const Logout = () => {
         background-color: #FDC840;
         border-color: #FDC840;
       }
+
       .logout-btn:hover {
         background-color: #f0a500 !important;
         border-color: #f0a500 !important;
@@ -73,6 +74,25 @@ const Logout = () => {
           transform: translateY(0);
         }
       }
+
+      /* Responzivni stilovi za mobilne uređaje */
+      @media (max-width: 768px) {
+        .logout-container {
+          padding: 1.5rem;
+          max-width: 90%;
+        }
+
+        .logout-title {
+          font-size: 1.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .logout-btn {
+          width: 100%;
+          font-size: 1rem;
+        }
+      }
+
     `;
     document.head.appendChild(logoutStyle);
 

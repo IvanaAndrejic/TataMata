@@ -13,7 +13,6 @@ const Admin = () => {
   const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
-
     cleanupComponentStyles([`tm-admin`]); 
     fetchQuestions();
 
@@ -134,15 +133,27 @@ const Admin = () => {
 
       <style>
         {`
-          body {
+          * {
+            box-sizing: border-box; 
+          }
+
+          html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden; /* Sprečava horizontalni skrol */
+            overflow-y: auto; /* Obezbeđuje vertikalni skrol samo kad je potreban */
+          }
+
+          body {
             font-family: "Lexend", sans-serif; 
             background: #f3f4f8;
           }
 
           .container {
-            max-width: 80rem;
+            width: 100%;
+            max-width: 100%;
             margin-top: 0.625rem;
             box-shadow: 0 0 0.625rem #FDC840;
             padding: 1.25rem;
@@ -197,6 +208,64 @@ const Admin = () => {
           .admin-q {
             font-weight: bold;
             color: #0d1e49;
+          }
+
+          @media (max-width: 767px) {
+            .container {
+              padding: 1rem;
+              margin-left: 0;
+              margin-right: 0;
+            }
+
+            .form-control {
+              height: auto; 
+            }
+
+            .card-body {
+              padding: 0.75rem; 
+            }
+
+            .btn-warning {
+              font-size: 0.875rem; 
+            }
+          }
+
+          @media (max-width: 430px) {
+            html, body {
+              overflow-y: auto;
+              margin: 0; /* Dodatno se osigurava da nema nepoželjnih margina na malim ekranima */
+              padding: 0;
+              display: flex;
+              justify-content: center; /* Centriraj sadržaj horizontalno */
+              align-items: flex-start; /* Poravnaj na vrh */
+            }
+
+            .container {
+              padding: 0.5rem;
+              margin: 0 auto; 
+              margin-right: auto;
+              width: 100%; /* Obezbeđuje da se kontejner širi uvek na celokupnu širinu ekrana */
+              max-width: 100%; /* Obezbeđuje da širina ne izlazi iz okvira */
+            }
+
+            .form-control {
+              font-size: 0.875rem; 
+              width: 100%; 
+
+            }
+
+            .btn-warning {
+              font-size: 0.75rem; 
+               width: 100%; 
+            }
+
+            .card-body {
+              padding: 0.5rem; 
+            }
+
+            footer {
+              font-size: 0.875rem; 
+            }
           }
         `}
       </style>

@@ -3,7 +3,14 @@ import { Modal, Button } from 'react-bootstrap';
 
 const TataMataResultModal = ({ show, handleClose, result }) => {
   return (
-    <Modal show={show} onHide={handleClose} centered size="m" style={{fontFamily: "Lexend, sans-serif"}} animation>
+    <Modal 
+      show={show} 
+      onHide={handleClose} 
+      centered 
+      size="m" 
+      style={{fontFamily: "Lexend, sans-serif"}} 
+      animation
+    >
       <Modal.Header className="bg-warning text-white">
         <Modal.Title>Rezultat</Modal.Title>
       </Modal.Header>
@@ -17,6 +24,30 @@ const TataMataResultModal = ({ show, handleClose, result }) => {
           Zatvori
         </Button>
       </Modal.Footer>
+
+      {/* Responzivnost */}
+      <style>
+        {`
+          .modal-content {
+            width: auto
+            max-width: 90%; 
+            margin: 0 auto; 
+          }
+
+          /* Manja prilagođavanja za mobilne uređaje */
+          @media (max-width: 576px) {
+            .modal-content {
+              max-width: 95%; 
+            }
+          }
+
+          @media (max-width: 400px) {
+            .modal-content {
+              max-width: 90%; 
+            }
+          }
+        `}
+      </style>
     </Modal>
   );
 };

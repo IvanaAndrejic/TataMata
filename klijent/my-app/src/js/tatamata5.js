@@ -1,5 +1,4 @@
 (function () {
-
   function cleanupComponentStyles(except = []) {
     const removeStyles = (attrName) => {
       const styles = document.querySelectorAll(`style[${attrName}]`);
@@ -24,9 +23,11 @@
       html, body {
         margin: 0;
         padding: 0;
-        height: 100%;
+        height: 100vh;
         font-family: "Lexend", sans-serif; 
         background: #f3f4f8 !important;
+        display: flex;
+        flex-direction: column;
       }
 
       #root {
@@ -34,7 +35,6 @@
         display: flex;
         flex-direction: column;
       }
-
 
       #tatamata-content {
         flex: 1;
@@ -44,12 +44,13 @@
         padding: 1.25rem;
         overflow-y: auto;
         box-sizing: border-box;
+        height: auto; 
       }
 
       .tm5-card-container {
         display: flex;
         justify-content: center;
-        gap: 3rem;
+        gap: 2rem;
         flex-wrap: wrap;
         padding: 2rem;
         border-radius: 0.5rem;
@@ -58,6 +59,7 @@
         width: 100%;
         max-width: 80rem;
         box-sizing: border-box;
+        margin: 0 auto;
       }
 
       .card5 {
@@ -71,6 +73,9 @@
         background-color: #fff;
         transition: transform 0.3s ease;
         font-family: "Lexend", sans-serif; 
+        height: auto;
+        flex-grow: 1; 
+        min-height: 22rem; 
       }
 
       .card5:hover {
@@ -83,12 +88,78 @@
         justify-content: space-between;
         align-items: center;
         margin-top: 1.25rem;
+        text-align: center;
+        flex-grow: 1;
       }
 
       .btn {
         margin-top: auto;
         margin-bottom: 0.625rem;
         width: 60%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+      }
+
+      /* Responzivnost */
+      @media (max-width: 768px) {
+        .tm5-card-container {
+          gap: 1.5rem;
+          padding: 1.5rem;
+        }
+
+        .card5 {
+          width: 14rem; 
+        }
+
+        .card-body {
+          padding-bottom: 1rem;
+        }
+
+        .btn {
+          width: 70%;
+        }
+
+        #tatamata-content {
+          padding: 1rem; 
+        }
+
+        footer {
+          display: none;
+        }
+      }
+
+      @media (max-width: 1024px) and (min-width: 769px) {
+        .tm5-card-container {
+          gap: 1.5rem;
+          padding: 1.5rem;
+          flex-direction: column;
+          align-items: center; 
+          max-width: 80%; 
+        }
+
+        .card5 {
+          width: 90%;
+          margin-bottom: 2rem; 
+        }
+
+        .card-body {
+          padding-bottom: 1rem;
+        }
+
+        .btn {
+          width: 70%;
+        }
+
+        #tatamata-content {
+          padding: 1rem; 
+        }
+
+        footer {
+          display: none;
+        }
       }
     `;
     document.head.appendChild(style);
