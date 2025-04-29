@@ -200,8 +200,6 @@ app.post("/api/auth/make-admin", async (req, res) => {
 // POST QUESTION
 app.post('/api/questions', authenticate, async (req, res) => {
   try {
-    console.log('Decoded user:', req.user);
-    console.log('Pitanje:', req.body.question);
     const { question } = req.body;
     if (!question) return res.status(400).json({ message: "Pitanje je obavezno" });
 
@@ -222,6 +220,7 @@ app.post('/api/questions', authenticate, async (req, res) => {
 // GET QUESTIONS
 app.get('/api/questions', authenticate, async (req, res) => {
   try {
+    // populate() zamenjuje referencu stvarnim podacima iz povezane kolekcije
     const questions = req.user.isAdmin
       ? await Question.find().populate('userId', 'name email')
       : await Question.find({ userId: req.user.id }).populate('userId', 'name email');
@@ -257,6 +256,7 @@ app.put('/api/questions/:id/answer', authenticate, async (req, res) => {
 app.get('/api/questions/unread-count', authenticate, async (req, res) => {
   try {
     let count;
+    //countDocuments() u Mongoose-u precizno broji broj dokumenata koji zadovoljavaju određeni uslov
     if (req.user.isAdmin) {
       count = await Question.countDocuments({ isReadByAdmin: false });
     } else {
@@ -271,6 +271,8 @@ app.get('/api/questions/unread-count', authenticate, async (req, res) => {
 // Admin pročitao poruke
 app.put('/api/questions/mark-read-admin', authenticate, async (req, res) => {
   if (!req.user.isAdmin) return res.status(403).json({ message: "Zabranjeno" });
+  /* updateMany metoda iz MongoDB-a ažurira sve dokumente u kolekciji Question 
+  koji imaju isReadByAdmin: false (pitanja koja admin još nije pročitao) */
   await Question.updateMany({ isReadByAdmin: false }, { isReadByAdmin: true });
   res.json({ message: "Označene kao pročitane" });
 });
