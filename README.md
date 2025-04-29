@@ -46,6 +46,7 @@ Cilj aplikacije je da na zanimljiv i pristupačan način podrži korisnike u uč
 ### Ostalo ###
 - **Math.js** (za evaluaciju matematičkih izraza)
 - **Plotly.js** (za crtanje grafikona)
+- **Numbers.api** (za dobijanje informacija o brojevima)
 ## Struktura projekta
 Frontend i backend su integrisani u jednom projektu, sa modularno organizovanim komponentama, servisima, rutama i kontrolerima radi lakše održivosti i razvoja.
 ## Instalacija
