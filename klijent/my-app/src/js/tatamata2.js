@@ -153,6 +153,7 @@
     document.getElementById("tm-fact").textContent = getMathJoke();
   }
 
+  //Matematičke šale
   function getMathJoke() {
     const jokes = [
       "Why was the equal sign so humble? Because it knew it wasn’t less than or greater than anyone else.",

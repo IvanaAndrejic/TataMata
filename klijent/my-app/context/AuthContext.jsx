@@ -1,3 +1,5 @@
+// AuthProvider čuva podatke o korisniku, omogućava login/logout i deli ih kroz aplikaciju preko React konteksta.
+
 import { createContext, useState, useContext, useEffect } from "react";
 
 const Authcontext = createContext();

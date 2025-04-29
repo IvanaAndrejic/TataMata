@@ -8,6 +8,7 @@ function cleanupComponentStyles(excludePrefixes = []) {
   });
 }
 
+//Resetovanje 
 if (typeof window.reloadScripts === 'undefined') {
   window.reloadScripts = () => {
     cleanupComponentStyles(['tm1']);
@@ -23,6 +24,7 @@ if (typeof window.reloadScripts === 'undefined') {
   };
 }
 
+//Dinamičko kreiranje script taga
 if (typeof window.loadScript === 'undefined') {
   window.loadScript = function (src) {
     return new Promise((resolve, reject) => {
@@ -35,6 +37,7 @@ if (typeof window.loadScript === 'undefined') {
   };
 }
 
+//Učitavanje eksternih biblioteka
 if (typeof window.loadExternalScripts === 'undefined') {
   window.loadExternalScripts = function () {
     return Promise.all([
