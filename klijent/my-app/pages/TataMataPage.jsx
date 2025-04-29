@@ -40,6 +40,7 @@ export default function TataMataPage() {
     script.src = `/src/js/tatamata${id}.js`;
     script.async = true;
 
+    //Kada se skripta učita, čeka se najmanje 500ms pre nego što se postavi "loading" na false
     const start = Date.now();
 
     script.onload = () => {

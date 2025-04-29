@@ -174,6 +174,7 @@
     `;
   }
 
+  //Renderovanje poruka
   function renderMessages() {
     const messagesList = document.getElementById("messagesList");
     if (!messagesList) return;
@@ -242,6 +243,7 @@
       return;
     }
 
+    //Slanje pitanja adminu
     try {
       const response = await fetch('http://localhost:5000/api/questions', {
         method: 'POST',

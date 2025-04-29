@@ -15,13 +15,14 @@ import TataMataPage from "../pages/TataMataPage";
 import { useLocation } from 'react-router-dom';
 import Admin from "../pages/Admin";
 
-
+//Zaštićena ruta
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
 
   return user ? children : <Navigate to="/login" replace />;
 };
 
+//Zaštićena ruta za admina
 const ProtectedAdminRoute = ({ children }) => {
   const { user } = useAuth();
   return user && user.isAdmin === true ? children : <Navigate to="/" replace />

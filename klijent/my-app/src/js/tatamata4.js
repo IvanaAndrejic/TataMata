@@ -317,6 +317,7 @@
   let correctAnswers = 0;
   let totalAnswered = 0;
 
+  //Ažurira vizuelni prikaz napretka korisnika kroz kviz koristeći Bootstrap progress bar
   function updateProgressBar() {
     const progress = Math.round((totalAnswered / quizData.length) * 100);
     const bar = document.getElementById("quizProgressBar");
@@ -325,7 +326,7 @@
     bar.textContent = `${progress}%`;
   }
   
-
+  //Učitavanje pitanja
   function loadQuestion() {
     const currentQuestion = quizData[currentQuestionIndex];
     const questionContainer = document.querySelector(".tm-question-container");
@@ -348,6 +349,7 @@
     `
   }
 
+  //Funkcija obrađuje korisnikov odgovor na trenutno pitanje i ažurira stanje kviza
   function answerQuestion() {
     const selectedAnswer = document.querySelector('input[name="answer"]:checked');
 
@@ -371,6 +373,7 @@
     }
   }
 
+  //Prikazivanje rezultata
   function showResults() {
     const totalQuestions = quizData.length;
     const percentage = ((correctAnswers / totalQuestions) * 100).toFixed(2);

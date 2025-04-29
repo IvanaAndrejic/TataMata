@@ -155,7 +155,7 @@
     document.head.appendChild(style);
   }
   
-
+  //"toast-style" Bootstrap alert
   function showNotification(message, type = 'warning') {
     const notificationContainer = document.createElement("div");
     notificationContainer.classList.add("alert", `alert-${type}`, "alert-dismissible", "fade", "show");
@@ -206,7 +206,7 @@
           showNotification("Molimo unesite broj.", "warning");
           return;
         }
-
+        //Povlačimo sa API-ja informacije o broju
         fetch(`http://numbersapi.com/${number}?json`)
           .then((res) => res.json())
           .then((data) => {
