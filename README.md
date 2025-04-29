@@ -43,7 +43,7 @@ Cilj aplikacije je da na zanimljiv i pristupačan način podrži korisnike u uč
 - **JSON Web Tokens (JWT)** za autentifikaciju
 ### Baza podataka
 - **MongoDB** (sa Mongoose ODM)
-###Ostalo###
+### Ostalo ###
 - **Math.js** (za evaluaciju matematičkih izraza)
 - **Plotly.js** (za crtanje grafikona)
 ## Struktura projekta
